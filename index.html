@@ -1,0 +1,376 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Flashcard App</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: #f4f4f4; }
+        #app { text-align: center; }
+        .card { width: 400px; height: 250px; perspective: 1000px; }
+        .card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.8s; transform-style: preserve-3d; }
+        .card.flipped .card-inner { transform: rotateY(180deg); }
+        .card-front, .card-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border: 1px solid #ccc; border-radius: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .card-front { background-color: white; }
+        .card-back { background-color: #f9f9f9; transform: rotateY(180deg); }
+        #controls, #navigation { margin-top: 20px; }
+        button { margin: 5px; padding: 10px 20px; cursor: pointer; }
+        input { padding: 10px; margin-top: 10px; }
+        .diff { margin-top: 10px; }
+        .diff span { padding: 2px 5px; border-radius: 3px; }
+        .diff .correct { background-color: #d4edda; }
+        .diff .incorrect { background-color: #f8d7da; }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <div id="menu">
+        <button id="week1">Week 1</button>
+        <button id="week2">Week 2</button>
+    </div>
+    <div id="flashcard" class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                <div id="definition"></div>
+                <button id="pronounce">Play Pronunciation</button>
+                <input type="text" id="guess" placeholder="Your guess...">
+                <button id="submit">Submit</button>
+            </div>
+            <div class="card-back">
+                <div id="diff" class="diff"></div>
+                <br>
+                <div id="translation"></div>
+                <br>
+                <div id="sample"></div>
+            </div>
+        </div>
+    </div>
+    <div id="navigation">
+        <button id="prev">Previous</button>
+        <button id="flip">Flip</button>
+        <button id="next">Next</button>
+    </div>
+    <div id="congrats" style="display: none;">
+        <h1>Congratulations!</h1>
+        <p>You have learned all the words for this week.</p>
+    </div>
+</div>
+
+<script>
+    const words = {
+        week1: [
+            {
+                word: "vicious",
+                definition: "Deliberately cruel or violent.",
+                translation: "порочный",
+                pronunciation: "vicious",
+                sample: "I know you're upset with her, but there's no need to be vicious.",
+                correctCount: 0
+            },
+            {
+                word: "gracious",
+                definition: "Marked by kindness and courtesy; pleasant, polite, and calm.",
+                translation: "милостивый",
+                pronunciation: "gracious",
+                sample: "The gracious hostess greeted everyone warmly.",
+                correctCount: 0
+            },
+            {
+                word: "spacious",
+                definition: "Having ample space; roomy or vast.",
+                translation: "просторный",
+                pronunciation: "spacious",
+                sample: "The house has a spacious kitchen and dining area.",
+                correctCount: 0
+            },
+            {
+                word: "malicious",
+                definition: "Having or showing a desire to cause harm to someone.",
+                translation: "злонамеренный",
+                pronunciation: "malicious",
+                sample: "Some malicious rumors are circulating about his past.",
+                correctCount: 0
+            },
+            {
+                word: "precious",
+                definition: "Of great value or high price; highly esteemed or cherished.",
+                translation: "драгоценный",
+                pronunciation: "precious",
+                sample: "My wedding ring is very precious to me.",
+                correctCount: 0
+            },
+            {
+                word: "conscious",
+                definition: "Awake and aware of one's surroundings.",
+                translation: "сознательный",
+                pronunciation: "conscious",
+                sample: "He was fully conscious when we found him.",
+                correctCount: 0
+            },
+            {
+                word: "delicious",
+                definition: "Highly pleasant to the taste.",
+                translation: "вкусный",
+                pronunciation: "delicious",
+                sample: "The food was absolutely delicious.",
+                correctCount: 0
+            },
+            {
+                word: "suspicious",
+                definition: "Having or showing a cautious distrust of someone or something.",
+                translation: "подозрительный",
+                pronunciation: "suspicious",
+                sample: "We were instructed to report any suspicious activity in the neighborhood.",
+                correctCount: 0
+            },
+            {
+                word: "atrocious",
+                definition: "Of a very poor quality; extremely bad or unpleasant.",
+                translation: "зверский",
+                pronunciation: "atrocious",
+                sample: "The weather was atrocious all week.",
+                correctCount: 0
+            },
+            {
+                word: "ferocious",
+                definition: "Savagely fierce, cruel, or violent.",
+                translation: "свирепый",
+                pronunciation: "ferocious",
+                sample: "The ferocious storm caused great damage to the houses along the coast.",
+                correctCount: 0
+            }
+        ],
+        week2: [
+            {
+                word: "ambitious",
+                definition: "Having or showing a strong desire and determination to succeed.",
+                translation: "амбициозный",
+                pronunciation: "ambitious",
+                sample: "He is very ambitious and hopes to become a CEO one day.",
+                correctCount: 0
+            },
+            {
+                word: "cautious",
+                definition: "Careful to avoid potential problems or dangers.",
+                translation: "осторожный",
+                pronunciation: "cautious",
+                sample: "You cannot be overly cautious when you're driving in snow.",
+                correctCount: 0
+            },
+            {
+                word: "fictitious",
+                definition: "Not real or true, being imaginary or having been fabricated.",
+                translation: "вымышленный",
+                pronunciation: "fictitious",
+                sample: "The story he told about winning the lottery was completely fictitious.",
+                correctCount: 0
+            },
+            {
+                word: "infectious",
+                definition: "Likely to spread or influence others in a rapid manner.",
+                translation: "инфекционный",
+                pronunciation: "infectious",
+                sample: "Her enthusiasm was infectious, and soon everyone in the room was smiling.",
+                correctCount: 0
+            },
+            {
+                word: "nutritious",
+                definition: "Efficient as food; nourishing.",
+                translation: "питательный",
+                pronunciation: "nutritious",
+                sample: "It is always important to choose enjoyable, nutritious foods.",
+                correctCount: 0
+            },
+            {
+                word: "contentious",
+                definition: "Causing or likely to cause an argument; controversial.",
+                translation: "спорный",
+                pronunciation: "contentious",
+                sample: "The proposal is highly contentious.",
+                correctCount: 0
+            },
+            {
+                word: "superstitious",
+                definition: "Having or showing a belief in superstitions.",
+                translation: "суеверный",
+                pronunciation: "superstitious",
+                sample: "He's very superstitious and won't pitch without his lucky mitt.",
+                correctCount: 0
+            },
+            {
+                word: "pretentious",
+                definition: "Attempting to impress by affecting greater importance, talent, culture, etc., than is actually possessed.",
+                translation: "претенциозный",
+                pronunciation: "pretentious",
+                sample: "His writing style is unnecessarily pretentious.",
+                correctCount: 0
+            },
+            {
+                word: "anxious",
+                definition: "Experiencing worry, unease, or nervousness, typically about an imminent event or something with an uncertain outcome.",
+                translation: "тревожный",
+                pronunciation: "anxious",
+                sample: "She feels anxious and depressed.",
+                correctCount: 0
+            },
+            {
+                word: "obnoxious",
+                definition: "Extremely unpleasant.",
+                translation: "неприятный",
+                pronunciation: "obnoxious",
+                sample: "Some teenagers were being loud and obnoxious.",
+                correctCount: 0
+            }
+        ]
+    };
+
+    let currentWeek = 'week1';
+    let unlearnedWords = [];
+    let currentCardIndex = 0;
+    let synth = window.speechSynthesis;
+
+    const definitionEl = document.getElementById('definition');
+    const translationEl = document.getElementById('translation');
+    const sampleEl = document.getElementById('sample');
+    const diffEl = document.getElementById('diff');
+    const guessInput = document.getElementById('guess');
+    const cardEl = document.getElementById('flashcard');
+    const congratsEl = document.getElementById('congrats');
+    const navigationEl = document.getElementById('navigation');
+
+    function getUnlearnedWords() {
+        return words[currentWeek].filter(word => word.correctCount < 3);
+    }
+
+    function loadCard() {
+        unlearnedWords = getUnlearnedWords();
+        if (unlearnedWords.length === 0) {
+            cardEl.style.display = 'none';
+            navigationEl.style.display = 'none';
+            congratsEl.style.display = 'block';
+            return;
+        }
+        cardEl.style.display = 'block';
+        navigationEl.style.display = 'block';
+        congratsEl.style.display = 'none';
+
+        const word = unlearnedWords[currentCardIndex];
+        definitionEl.textContent = word.definition;
+        translationEl.innerText = word.translation;
+        sampleEl.textContent = word.sample;
+        diffEl.innerHTML = '';
+        guessInput.value = '';
+        cardEl.classList.remove('flipped');
+        speak(word.pronunciation);
+        guessInput.focus();
+    }
+
+    function speak(text) {
+        if (synth.speaking) {
+            console.error('speechSynthesis.speaking');
+            return;
+        }
+        if (text !== '') {
+            const utterThis = new SpeechSynthesisUtterance(text);
+            utterThis.onend = function (event) {
+                console.log('SpeechSynthesisUtterance.onend');
+            }
+            utterThis.onerror = function (event) {
+                console.error('SpeechSynthesisUtterance.onerror');
+            }
+            synth.speak(utterThis);
+        }
+    }
+
+    function showDiff(guess, correct) {
+        let result = '';
+        let isCorrect = true;
+        for (let i = 0; i < correct.length; i++) {
+            if (i < guess.length && guess[i].toLowerCase() === correct[i].toLowerCase()) {
+                result += `<span class="correct">${correct[i]}</span>`;
+            } else {
+                result += `<span class="incorrect">${correct[i]}</span>`;
+                isCorrect = false;
+            }
+        }
+        if (guess.length > correct.length) {
+            result += `<span class="incorrect">${guess.substring(correct.length)}</span>`;
+            isCorrect = false;
+        }
+        if (guess.length < correct.length) {
+            isCorrect = false;
+        }
+        diffEl.innerHTML = result;
+        return isCorrect;
+    }
+
+    document.getElementById('week1').addEventListener('click', () => {
+        currentWeek = 'week1';
+        words.week1.forEach(word => word.correctCount = 0);
+        currentCardIndex = 0;
+        loadCard();
+    });
+
+    document.getElementById('week2').addEventListener('click', () => {
+        currentWeek = 'week2';
+        words.week2.forEach(word => word.correctCount = 0);
+        currentCardIndex = 0;
+        loadCard();
+    });
+
+    document.getElementById('pronounce').addEventListener('click', () => {
+        speak(unlearnedWords[currentCardIndex].pronunciation);
+    });
+
+    document.getElementById('submit').addEventListener('click', () => {
+        const guess = guessInput.value;
+        const correct = unlearnedWords[currentCardIndex].word;
+        const isCorrect = showDiff(guess, correct);
+        if (isCorrect) {
+            unlearnedWords[currentCardIndex].correctCount++;
+        }
+        cardEl.classList.add('flipped');
+    });
+
+    function loadNextCard() {
+        if (cardEl.classList.contains('flipped')) {
+            cardEl.classList.remove('flipped');
+            cardEl.addEventListener('transitionend', () => {
+                loadCard();
+            }, { once: true });
+        } else {
+            loadCard();
+        }
+    }
+
+    guessInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            if (cardEl.classList.contains('flipped')) {
+                currentCardIndex = (currentCardIndex + 1) % unlearnedWords.length;
+                loadNextCard();
+            } else {
+                document.getElementById('submit').click();
+            }
+        }
+    });
+
+    document.getElementById('flip').addEventListener('click', () => {
+        cardEl.classList.toggle('flipped');
+    });
+
+    document.getElementById('next').addEventListener('click', () => {
+        currentCardIndex = (currentCardIndex + 1) % unlearnedWords.length;
+        loadNextCard();
+    });
+
+    document.getElementById('prev').addEventListener('click', () => {
+        currentCardIndex = (currentCardIndex - 1 + unlearnedWords.length) % unlearnedWords.length;
+        loadNextCard();
+    });
+
+    loadCard();
+</script>
+
+</body>
+</html>
