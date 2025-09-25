@@ -47,6 +47,8 @@
                 <button id="submit">Submit</button>
             </div>
             <div class="card-back">
+                <div>answer: <span id="answer" class=""></span></div>
+                <div>word: <b id="word" class=""></b></div>
                 <div id="diff" class="diff"></div>
                 <br>
                 <div id="translation"></div>
@@ -638,6 +640,8 @@
     const congratsEl = document.getElementById('congrats');
     const navigationEl = document.getElementById('navigation');
     const statsEl = document.getElementById('stats');
+    const answerEl = document.getElementById('answer');
+    const wordEl = document.getElementById('word');
 
     function getUnlearnedWords() {
         return words[currentWeek].filter(word => word.correctCount < 3);
@@ -762,6 +766,8 @@
         }
         cardEl.classList.add('flipped');
         statsEl.textContent = `${unlearnedWords[currentCardIndex].correctCount} / ${unlearnedWords[currentCardIndex].attempts}`;
+        answerEl.textContent = guess;
+        wordEl.textContent = correct;
     });
 
     function loadNextCard() {
