@@ -73,556 +73,76 @@
 <script>
     const words = {
         week1: [
-            {
-                word: "doubt",
-                definition: "A feeling of uncertainty or lack of conviction.",
-                translation: ["сомнение", "неуверенность", "сомневаться"],
-                pronunciation: "doubt",
-                sample: "She began to doubt her decision after hearing the news.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "lamb",
-                definition: "A young sheep.",
-                translation: ["ягнёнок", "барашек"],
-                pronunciation: "lamb",
-                sample: "The lamb followed its mother across the field.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "debt",
-                definition: "Something, typically money, that is owed or due.",
-                translation: ["долг", "задолженность"],
-                pronunciation: "debt",
-                sample: "He paid off his student debt last year.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "thumb",
-                definition: "The short, thick first digit of the human hand.",
-                translation: ["большой палец (руки)"],
-                pronunciation: "thumb",
-                sample: "She gave a thumbs-up to show her approval.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "solemn",
-                definition: "Formal and dignified; serious.",
-                translation: ["торжественный", "серьёзный", "важный"],
-                pronunciation: "solemn",
-                sample: "There was a solemn silence during the ceremony.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "autumn",
-                definition: "The season between summer and winter; fall.",
-                translation: ["осень"],
-                pronunciation: "autumn",
-                sample: "The leaves turn red and gold in autumn.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "column",
-                definition: "An upright pillar, typically cylindrical, supporting a structure or standing alone as a monument.",
-                translation: ["колонна", "столб", "графа (в таблице)"],
-                pronunciation: "column",
-                sample: "The ancient temple was supported by marble columns.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "knight",
-                definition: "A man awarded a nonhereditary title by a monarch for service, especially in a military capacity.",
-                translation: ["рыцарь"],
-                pronunciation: "knight",
-                sample: "The knight wore shining armor and rode a horse.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "knuckle",
-                definition: "A joint of a finger, when the fist is closed.",
-                translation: ["сустав пальца", "костяшка"],
-                pronunciation: "knuckle",
-                sample: "He rapped on the door with his knuckles.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "knot",
-                definition: "A fastening made by tying a piece of string, rope, or something similar.",
-                translation: ["узел"],
-                pronunciation: "knot",
-                sample: "She tied a knot to secure the rope.",
-                correctCount: 0,
-                attempts: 0
-            }
+            { word: "community", definition: "A group of people living in the same place or sharing common interests.", translation: ["сообщество","община","общество"], pronunciation: "community", sample: "The local community organized a clean-up day.", correctCount: 0, attempts: 0 },
+            { word: "curiosity", definition: "A strong desire to know or learn something.", translation: ["любопытство","интерес"], pronunciation: "curiosity", sample: "Her curiosity led her to read the entire report.", correctCount: 0, attempts: 0 },
+            { word: "ability", definition: "The power or skill to do something.", translation: ["способность","умение"], pronunciation: "ability", sample: "He has the ability to solve complex problems.", correctCount: 0, attempts: 0 },
+            { word: "visibility", definition: "The state of being able to see or be seen.", translation: ["видимость","заметность"], pronunciation: "visibility", sample: "Fog reduced visibility on the road.", correctCount: 0, attempts: 0 },
+            { word: "captivity", definition: "The state of being imprisoned or confined.", translation: ["плен","неволя"], pronunciation: "captivity", sample: "The animals were released from captivity.", correctCount: 0, attempts: 0 },
+            { word: "activity", definition: "Something that is done for enjoyment or a particular purpose.", translation: ["деятельность","активность","занятие"], pronunciation: "activity", sample: "Outdoor activity is good for your health.", correctCount: 0, attempts: 0 },
+            { word: "eternity", definition: "Infinite or endless time.", translation: ["вечность"], pronunciation: "eternity", sample: "Their love seemed to last for eternity.", correctCount: 0, attempts: 0 },
+            { word: "flexibility", definition: "The ability to bend or adapt easily.", translation: ["гибкость","податливость"], pronunciation: "flexibility", sample: "Flexibility is important in negotiation.", correctCount: 0, attempts: 0 },
+            { word: "possibility", definition: "A thing that may happen or be the case.", translation: ["возможность","вариант"], pronunciation: "possibility", sample: "There is a possibility of rain tomorrow.", correctCount: 0, attempts: 0 },
+            { word: "sensitivity", definition: "The quality of being easily affected or responsive.", translation: ["чувствительность","внимательность"], pronunciation: "sensitivity", sample: "Skin sensitivity increases in winter.", correctCount: 0, attempts: 0 }
         ],
         week2: [
-            {
-                word: "wrestle",
-                definition: "To take part in a fight, either as sport or in earnest, that involves grappling with one's opponent and trying to throw or force them to the ground.",
-                translation: ["бороться", "кувыркаться"],
-                pronunciation: "wrestle",
-                sample: "The two boys began to wrestle in the playground.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "wrapper",
-                definition: "A piece of paper, plastic, or foil that covers or encloses something.",
-                translation: ["обёртка", "обёрточная бумага"],
-                pronunciation: "wrapper",
-                sample: "She threw the candy wrapper into the trash.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "island",
-                definition: "A piece of land surrounded by water.",
-                translation: ["остров"],
-                pronunciation: "island",
-                sample: "They spent their vacation on a tropical island.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "aisle",
-                definition: "A passage between rows of seats.",
-                translation: ["проход"],
-                pronunciation: "aisle",
-                sample: "Please take your seat; you are blocking the aisle.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "debris",
-                definition: "Scattered pieces of rubbish or remains.",
-                translation: ["обломки", "мусор"],
-                pronunciation: "debris",
-                sample: "The storm left debris all over the streets.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "mortgage",
-                definition: "A legal agreement by which a bank lends money in exchange for taking title of the debtor's property.",
-                translation: ["ипотека", "заклад"],
-                pronunciation: "mortgage",
-                sample: "They applied for a mortgage to buy their first house.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "Christmas",
-                definition: "The annual Christian festival celebrating Christ's birth, held on December 25.",
-                translation: ["Рождество"],
-                pronunciation: "Christmas",
-                sample: "They decorated the tree for Christmas.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "yacht",
-                definition: "A medium-sized sailboat equipped for cruising or racing.",
-                translation: ["яхта"],
-                pronunciation: "yacht",
-                sample: "They sailed the yacht across the bay.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "guarantee",
-                definition: "A formal promise that certain conditions will be fulfilled.",
-                translation: ["гарантия", "гарантировать"],
-                pronunciation: "guarantee",
-                sample: "The product comes with a two-year guarantee.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "guilty",
-                definition: "Responsible for a specified wrongdoing.",
-                translation: ["виновный", "виноватый"],
-                pronunciation: "guilty",
-                sample: "He felt guilty about lying to his friend.",
-                correctCount: 0,
-                attempts: 0
-            }
+            { word: "happiness", definition: "The state of being happy.", translation: ["счастье"], pronunciation: "happiness", sample: "They shared moments of happiness together.", correctCount: 0, attempts: 0 },
+            { word: "hardness", definition: "The quality of being hard.", translation: ["твёрдость","жёсткость"], pronunciation: "hardness", sample: "The hardness of the metal makes it durable.", correctCount: 0, attempts: 0 },
+            { word: "madness", definition: "Severe mental illness or extremely foolish behavior.", translation: ["безумие","сумасшествие"], pronunciation: "madness", sample: "In a moment of madness, he quit his job.", correctCount: 0, attempts: 0 },
+            { word: "nastiness", definition: "The state or quality of being unpleasant or offensive.", translation: ["мерзость","гадость","злобность"], pronunciation: "nastiness", sample: "The nastiness of the comments surprised everyone.", correctCount: 0, attempts: 0 },
+            { word: "silliness", definition: "Lack of seriousness; foolishness.", translation: ["глупость","несерьёзность"], pronunciation: "silliness", sample: "Stop the silliness and focus on your work.", correctCount: 0, attempts: 0 },
+            { word: "tidiness", definition: "The state of being neat and orderly.", translation: ["опрятность","аккуратность"], pronunciation: "tidiness", sample: "Her tidiness keeps the office organized.", correctCount: 0, attempts: 0 },
+            { word: "childishness", definition: "Behavior typical of a child; immature behavior.", translation: ["детскость","ребячество","инфантильность"], pronunciation: "childishness", sample: "His childishness annoyed his colleagues.", correctCount: 0, attempts: 0 },
+            { word: "willingness", definition: "The quality of being ready or eager to do something.", translation: ["готовность","желание"], pronunciation: "willingness", sample: "Her willingness to help made a difference.", correctCount: 0, attempts: 0 },
+            { word: "carelessness", definition: "Failure to take care; negligence.", translation: ["небрежность","невнимательность"], pronunciation: "carelessness", sample: "Carelessness can lead to accidents.", correctCount: 0, attempts: 0 },
+            { word: "foolishness", definition: "Lack of good sense or judgment.", translation: ["глупость","безрассудство"], pronunciation: "foolishness", sample: "He regretted his foolishness later.", correctCount: 0, attempts: 0 }
         ],
         week3: [
-            {
-                word: "can",
-                definition: "Used to express ability or possibility.",
-                translation: ["мочь", "уметь"],
-                pronunciation: "can",
-                sample: "I can swim across the lake.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "could",
-                definition: "Past form of 'can'; used to express past ability or polite possibility.",
-                translation: ["мог", "мог бы"],
-                pronunciation: "could",
-                sample: "When I was young, I could run very fast.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "may",
-                definition: "Used to express possibility or permission.",
-                translation: ["мочь", "возможно", "можно"],
-                pronunciation: "may",
-                sample: "It may rain later today.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "might",
-                definition: "Used to express a small possibility or a tentative suggestion.",
-                translation: ["мог бы", "возможно"],
-                pronunciation: "might",
-                sample: "We might go to the cinema tonight.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "must",
-                definition: "Used to express obligation, necessity, or strong probability.",
-                translation: ["должен", "необходимо"],
-                pronunciation: "must",
-                sample: "You must wear a seat belt.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "shall",
-                definition: "Used to make offers or suggestions; in formal English, indicates future (mostly with I/we).",
-                translation: ["должен", "следует"],
-                pronunciation: "shall",
-                sample: "Shall we start the meeting?",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "should",
-                definition: "Used to give advice or indicate expectation or duty.",
-                translation: ["следует", "должен"],
-                pronunciation: "should",
-                sample: "You should drink more water.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "will",
-                definition: "Used to express future actions, willingness, or promises.",
-                translation: ["будет", "собираюсь"],
-                pronunciation: "will",
-                sample: "I will call you tomorrow.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "would",
-                definition: "Past form of 'will'; used to talk about habits in the past or polite requests and conditionals.",
-                translation: ["бы", "хотел бы"],
-                pronunciation: "would",
-                sample: "When we were kids, we would play outside all day.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "ought",
-                definition: "Used to express moral duty or correctness; usually followed by 'to'.",
-                translation: ["следует"],
-                pronunciation: "ought",
-                sample: "You ought to apologize.",
-                correctCount: 0,
-                attempts: 0
-            }
+            { word: "membership", definition: "The state of being a member of a group.", translation: ["членство"], pronunciation: "membership", sample: "Membership gives you access to exclusive content.", correctCount: 0, attempts: 0 },
+            { word: "ownership", definition: "The state or right of possessing something.", translation: ["собственность","владение"], pronunciation: "ownership", sample: "Ownership of the house transferred last year.", correctCount: 0, attempts: 0 },
+            { word: "partnership", definition: "An association of two or more people working together.", translation: ["партнёрство","сотрудничество"], pronunciation: "partnership", sample: "Their partnership boosted sales.", correctCount: 0, attempts: 0 },
+            { word: "dictatorship", definition: "Government by a dictator; absolute rule.", translation: ["диктатура"], pronunciation: "dictatorship", sample: "The dictatorship suppressed free speech.", correctCount: 0, attempts: 0 },
+            { word: "championship", definition: "A contest to decide a champion.", translation: ["чемпионат","первенство"], pronunciation: "championship", sample: "They won the national championship.", correctCount: 0, attempts: 0 },
+            { word: "craftsmanship", definition: "Skill in making things by hand.", translation: ["мастерство","ремесло"], pronunciation: "craftsmanship", sample: "The table shows excellent craftsmanship.", correctCount: 0, attempts: 0 },
+            { word: "fellowship", definition: "Friendly association; companionship.", translation: ["товарищество","дружба","сообщество"], pronunciation: "fellowship", sample: "Fellowship grew among the volunteers.", correctCount: 0, attempts: 0 },
+            { word: "apprenticeship", definition: "A period of training under a skilled employer.", translation: ["ученичество","стажировка"], pronunciation: "apprenticeship", sample: "He completed a two-year apprenticeship.", correctCount: 0, attempts: 0 },
+            { word: "citizenship", definition: "The status of being a citizen.", translation: ["гражданство"], pronunciation: "citizenship", sample: "She applied for citizenship.", correctCount: 0, attempts: 0 },
+            { word: "sponsorship", definition: "Financial or other support for an activity.", translation: ["спонсорство","патронаж"], pronunciation: "sponsorship", sample: "The event relied on corporate sponsorship.", correctCount: 0, attempts: 0 }
         ],
         week4: [
-            {
-                word: "equipment",
-                definition: "The necessary items for a particular purpose.",
-                translation: ["оборудование", "снаряжение"],
-                pronunciation: "equipment",
-                sample: "The lab bought new safety equipment.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "environment",
-                definition: "The surroundings or conditions in which a person, animal, or plant lives or operates.",
-                translation: ["окружающая среда", "среда"],
-                pronunciation: "environment",
-                sample: "We need to protect the environment.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "government",
-                definition: "The body of a nation, state, or community.",
-                translation: ["правительство"],
-                pronunciation: "government",
-                sample: "The government announced new policies.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "parliament",
-                definition: "The highest legislature, consisting of the sovereign, the House of Lords, and the House of Commons.",
-                translation: ["парламент"],
-                pronunciation: "parliament",
-                sample: "Parliament debated the bill late into the night.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "enjoyment",
-                definition: "The state or process of taking pleasure in something.",
-                translation: ["наслаждение", "удовольствие"],
-                pronunciation: "enjoyment",
-                sample: "Reading is his greatest enjoyment.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "document",
-                definition: "A piece of written, printed, or electronic matter that provides information or evidence.",
-                translation: ["документ"],
-                pronunciation: "document",
-                sample: "Please sign the document at the bottom.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "management",
-                definition: "The process of dealing with or controlling things or people.",
-                translation: ["менеджмент", "управление", "руководство"],
-                pronunciation: "management",
-                sample: "Good time management is essential.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "movement",
-                definition: "An act of changing physical location or position.",
-                translation: ["движение", "перемещение"],
-                pronunciation: "movement",
-                sample: "There was movement behind the curtain.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "replacement",
-                definition: "The action or process of replacing someone or something.",
-                translation: ["замена", "замещение"],
-                pronunciation: "replacement",
-                sample: "The company ordered a replacement part.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "statement",
-                definition: "A definite or clear expression of something in speech or writing.",
-                translation: ["заявление", "утверждение"],
-                pronunciation: "statement",
-                sample: "She gave a statement to the press.",
-                correctCount: 0,
-                attempts: 0
-            }
+            { word: "stationary", definition: "Not moving or not intended to be moved.", translation: ["неподвижный","стационарный"], pronunciation: "stationary", sample: "The car was stationary at the red light.", correctCount: 0, attempts: 0 },
+            { word: "stationery", definition: "Writing and office materials.", translation: ["канцелярские принадлежности"], pronunciation: "stationery", sample: "She bought stationery for school.", correctCount: 0, attempts: 0 },
+            { word: "steal", definition: "To take something without permission.", translation: ["красть","украсть"], pronunciation: "steal", sample: "He tried to steal a bike.", correctCount: 0, attempts: 0 },
+            { word: "steel", definition: "A strong hard metal made of iron and carbon.", translation: ["сталь"], pronunciation: "steel", sample: "The bridge is made of steel.", correctCount: 0, attempts: 0 },
+            { word: "wary", definition: "Cautious and watchful.", translation: ["настороженный","осторожный"], pronunciation: "wary", sample: "Be wary of online scams.", correctCount: 0, attempts: 0 },
+            { word: "weary", definition: "Very tired; fatigued.", translation: ["утомлённый","усталый"], pronunciation: "weary", sample: "After the long hike, they were weary.", correctCount: 0, attempts: 0 },
+            { word: "who's", definition: "Contraction of 'who is' or 'who has'.", translation: ["кто есть","у кого (has)"], pronunciation: "who's", sample: "Who's coming to the meeting?", correctCount: 0, attempts: 0 },
+            { word: "whose", definition: "Belonging to which person.", translation: ["чей"], pronunciation: "whose", sample: "Whose book is this?", correctCount: 0, attempts: 0 },
+            { word: "fate", definition: "The development of events beyond a person's control; destiny.", translation: ["судьба","рок"], pronunciation: "fate", sample: "He accepted his fate.", correctCount: 0, attempts: 0 },
+            { word: "fete", definition: "A festival or celebration, often outdoors.", translation: ["праздник","ярмарка"], pronunciation: "fete", sample: "The village held a summer fete.", correctCount: 0, attempts: 0 }
         ],
         week5: [
-            {
-                word: "certainly",
-                definition: "Used to emphasize a statement or response; without doubt.",
-                translation: ["конечно", "несомненно"],
-                pronunciation: "certainly",
-                sample: "I will certainly help you tomorrow.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "definitely",
-                definition: "Without any doubt; clearly.",
-                translation: ["определённо", "точно"],
-                pronunciation: "definitely",
-                sample: "She definitely passed the exam.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "possibly",
-                definition: "Perhaps; used to indicate uncertainty or possibility.",
-                translation: ["возможно"],
-                pronunciation: "possibly",
-                sample: "We will possibly arrive late.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "perhaps",
-                definition: "Used to express uncertainty or possibility.",
-                translation: ["возможно", "может быть"],
-                pronunciation: "perhaps",
-                sample: "Perhaps we should try again tomorrow.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "probably",
-                definition: "Almost certainly; as far as one knows or can tell.",
-                translation: ["вероятно", "скорее всего"],
-                pronunciation: "probably",
-                sample: "He will probably be late.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "fequently",
-                definition: "Often; many times (common misspelling of 'frequently').",
-                translation: ["часто"],
-                pronunciation: "fequently",
-                sample: "She fequently visits her grandparents.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "often",
-                definition: "Frequently; many times.",
-                translation: ["часто"],
-                pronunciation: "often",
-                sample: "I often go for a walk after dinner.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "occasionally",
-                definition: "At infrequent or irregular intervals; now and then.",
-                translation: ["изредка", "время от времени"],
-                pronunciation: "occasionally",
-                sample: "We occasionally eat out on weekends.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "rarely",
-                definition: "Not often; seldom.",
-                translation: ["редко"],
-                pronunciation: "rarely",
-                sample: "He rarely watches TV.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "always",
-                definition: "At all times; on all occasions.",
-                translation: ["всегда"],
-                pronunciation: "always",
-                sample: "She always keeps her promises.",
-                correctCount: 0,
-                attempts: 0
-            }
+            { word: "alter", definition: "To change or modify.", translation: ["изменять","корректировать"], pronunciation: "alter", sample: "We need to alter the plan.", correctCount: 0, attempts: 0 },
+            { word: "altar", definition: "A table used in religious rituals.", translation: ["алтарь","жертвенник"], pronunciation: "altar", sample: "Flowers were placed on the altar.", correctCount: 0, attempts: 0 },
+            { word: "ascent", definition: "A climb or upward movement.", translation: ["подъём","восхождение"], pronunciation: "ascent", sample: "The ascent took three hours.", correctCount: 0, attempts: 0 },
+            { word: "assent", definition: "Agreement or approval.", translation: ["согласие","одобрение"], pronunciation: "assent", sample: "The board gave its assent.", correctCount: 0, attempts: 0 },
+            { word: "bridal", definition: "Relating to a bride or wedding.", translation: ["свадебный"], pronunciation: "bridal", sample: "She wore a beautiful bridal gown.", correctCount: 0, attempts: 0 },
+            { word: "bridle", definition: "A headgear for a horse used for control.", translation: ["уздечка"], pronunciation: "bridle", sample: "He tightened the bridle.", correctCount: 0, attempts: 0 },
+            { word: "cereal", definition: "A grain used for food; breakfast flakes.", translation: ["зерновая культура","хлопья"], pronunciation: "cereal", sample: "She had cereal for breakfast.", correctCount: 0, attempts: 0 },
+            { word: "serial", definition: "Consisting of a series; a TV show released in parts.", translation: ["серийный","сериал"], pronunciation: "serial", sample: "It's a popular crime serial.", correctCount: 0, attempts: 0 },
+            { word: "compliment", definition: "A polite expression of praise.", translation: ["комплимент"], pronunciation: "compliment", sample: "He paid her a sincere compliment.", correctCount: 0, attempts: 0 },
+            { word: "complement", definition: "Something that completes or goes well with something.", translation: ["дополнение","комплектующее"], pronunciation: "complement", sample: "The scarf is a perfect complement to the coat.", correctCount: 0, attempts: 0 }
         ],
         week6: [
-            {
-                word: "vegetable",
-                definition: "A plant or part of a plant used as food, such as a cabbage, potato, turnip, or bean.",
-                translation: ["овощ"],
-                pronunciation: "vegetable",
-                sample: "She added fresh vegetables to the soup.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "vehicle",
-                definition: "A thing used for transporting people or goods, especially on land, such as a car, truck, or cart (note: this is a misspelling of 'vehicle').",
-                translation: ["транспортное средство", "автомобиль"],
-                pronunciation: "vehicle",
-                sample: "The vehicle broke down on the highway.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "bruise",
-                definition: "An injury appearing as an area of discolored skin on the body, caused by a blow or impact.",
-                translation: ["синяк", "ушиб"],
-                pronunciation: "bruise",
-                sample: "He got a bruise on his arm after falling.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "soldier",
-                definition: "A person who serves in an army.",
-                translation: ["солдат", "военный"],
-                pronunciation: "soldier",
-                sample: "The soldier stood at attention during the ceremony.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "stomach",
-                definition: "The internal organ in which the first part of digestion occurs.",
-                translation: ["желудок", "живот"],
-                pronunciation: "stomach",
-                sample: "My stomach hurts after eating too much.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "recommend",
-                definition: "Put forward (someone or something) with approval as being suitable for a particular purpose or role.",
-                translation: ["рекомендовать", "советовать"],
-                pronunciation: "recommend",
-                sample: "I recommend this restaurant for its excellent food.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "leisure",
-                definition: "Free time; time when one is not working or occupied.",
-                translation: ["досуг", "свободное время"],
-                pronunciation: "leisure",
-                sample: "She enjoys reading in her leisure time.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "privilege",
-                definition: "A special right, advantage, or immunity granted or available only to a particular person or group.",
-                translation: ["привилегия", "льгота"],
-                pronunciation: "privilege",
-                sample: "It's a privilege to work with such talented people.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "occur",
-                definition: "Happen; take place.",
-                translation: ["происходить", "случаться"],
-                pronunciation: "occur",
-                sample: "The accident will occur if we don't fix the problem.",
-                correctCount: 0,
-                attempts: 0
-            },
-            {
-                word: "neighbour",
-                definition: "A person living near or next door to the speaker or person referred to.",
-                translation: ["сосед", "соседка"],
-                pronunciation: "neighbour",
-                sample: "Our neighbour brought us cookies yesterday.",
-                correctCount: 0,
-                attempts: 0
-            }
+            { word: "principal", definition: "Most important; the person in charge of a school.", translation: ["основной","главный","директор школы"], pronunciation: "principal", sample: "The principal addressed the students.", correctCount: 0, attempts: 0 },
+            { word: "principle", definition: "A fundamental truth or rule.", translation: ["принцип","основоположение"], pronunciation: "principle", sample: "Honesty is a guiding principle.", correctCount: 0, attempts: 0 },
+            { word: "profit", definition: "Financial gain.", translation: ["прибыль","доход"], pronunciation: "profit", sample: "The company reported higher profit.", correctCount: 0, attempts: 0 },
+            { word: "prophet", definition: "A person who proclaims divine messages.", translation: ["пророк"], pronunciation: "prophet", sample: "The prophet warned of future trials.", correctCount: 0, attempts: 0 },
+            { word: "descent", definition: "An act of moving down or a person's lineage.", translation: ["спуск","происхождение"], pronunciation: "descent", sample: "The descent was steep.", correctCount: 0, attempts: 0 },
+            { word: "dissent", definition: "Disagreement with official ideas.", translation: ["несогласие","инакомыслие"], pronunciation: "dissent", sample: "She voiced her dissent.", correctCount: 0, attempts: 0 },
+            { word: "desert", definition: "A dry, barren area of land.", translation: ["пустыня"], pronunciation: "desert", sample: "Camels survive in the desert.", correctCount: 0, attempts: 0 },
+            { word: "dessert", definition: "A sweet course after a meal.", translation: ["десерт"], pronunciation: "dessert", sample: "We shared a chocolate dessert.", correctCount: 0, attempts: 0 },
+            { word: "draft", definition: "A preliminary version of a written work; also a current of air.", translation: ["черновик","сквозняк"], pronunciation: "draft", sample: "Send me the first draft.", correctCount: 0, attempts: 0 },
+            { word: "draught", definition: "A current of cool air; beer served from a cask/tap (BrE).", translation: ["сквозняк","разливное пиво"], pronunciation: "draught", sample: "Close the window; there's a draught.", correctCount: 0, attempts: 0 }
         ]
     };
 
