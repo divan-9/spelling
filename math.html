@@ -347,7 +347,7 @@
         <div class="session-top">
             <div class="stat-pill">
                 <span class="stat-label">Время</span>
-                <div class="stat-value" id="timer">00:30</div>
+                <div class="stat-value" id="timer">01:00</div>
             </div>
             <div class="stat-pill">
                 <span class="stat-label">Пройдено карточек</span>
@@ -563,7 +563,7 @@ const rawTerms = [
         ["Координаты и графики", "scale", "шкала", "Деления на графике или линейке, которые показывают значение каждого шага.", "Check the scale before you read the graph.", "Проверь шкалу, прежде чем читать график."],
     ];
 
-    const SESSION_SECONDS = 30;
+    const SESSION_SECONDS = 60;
     const BEST_SCORE_KEY = 'year5-maths-best-score';
 
     const terms = rawTerms.map(function (item) {
@@ -615,6 +615,7 @@ const rawTerms = [
         feedbackTimerId: null,
         ended: false,
         paused: false,
+        pendingSessionEnd: false,
         options: [],
         answerLocked: false
     };
@@ -723,15 +724,22 @@ const rawTerms = [
     }
 
     function tick() {
-        if (state.ended || state.paused) {
+        if (state.ended || state.paused || state.pendingSessionEnd) {
             return;
         }
 
         state.timeLeft -= 1;
         if (state.timeLeft <= 0) {
             state.timeLeft = 0;
+            state.pendingSessionEnd = true;
+            if (state.timerId) {
+                clearInterval(state.timerId);
+                state.timerId = null;
+            }
             updateStats();
-            finishSession('timeout');
+            if (!state.answerLocked) {
+                frontHintEl.textContent = 'Время вышло — ответь на текущую карточку, и после этого сессия завершится.';
+            }
             return;
         }
 
@@ -750,6 +758,7 @@ const rawTerms = [
         state.timeLeft = SESSION_SECONDS;
         state.ended = false;
         state.paused = false;
+        state.pendingSessionEnd = false;
 
         endScreenEl.style.display = 'none';
         sessionScreenEl.style.display = 'block';
@@ -790,16 +799,20 @@ const rawTerms = [
 
         if (reason === 'completed') {
             endTitleEl.textContent = 'Ты прошёл все карточки!';
-            endTextEl.textContent = 'Супер! Ты успел закончить весь набор терминов до конца 30-секундной сессии.';
+            endTextEl.textContent = 'Супер! Ты успел закончить весь набор терминов до конца минутной сессии.';
         } else {
             endTitleEl.textContent = 'Время вышло!';
-            endTextEl.textContent = 'Отличная работа — давай посмотрим, сколько карточек удалось пройти за 30 секунд.';
+            endTextEl.textContent = 'Ты закончил текущую карточку, и теперь можно посмотреть результат за 1 минуту.';
         }
     }
 
     function moveCurrentCardToEnd() {
         const card = state.deck.splice(state.currentIndex, 1)[0];
         if (!card) {
+            if (state.pendingSessionEnd) {
+                finishSession('timeout');
+                return;
+            }
             renderCard();
             return;
         }
@@ -808,6 +821,12 @@ const rawTerms = [
             state.currentIndex = 0;
         }
         state.deck.push(card);
+
+        if (state.pendingSessionEnd) {
+            finishSession('timeout');
+            return;
+        }
+
         renderCard();
     }
 
@@ -818,6 +837,12 @@ const rawTerms = [
             state.currentIndex = 0;
         }
         updateStats();
+
+        if (state.pendingSessionEnd) {
+            finishSession('timeout');
+            return;
+        }
+
         renderCard();
     }
 
@@ -842,7 +867,7 @@ const rawTerms = [
         });
 
         if (selectedText === card.translation) {
-            frontHintEl.textContent = 'Верно!';
+            frontHintEl.textContent = state.pendingSessionEnd ? 'Верно! Это был последний ответ сессии.' : 'Верно!';
             state.feedbackTimerId = setTimeout(function () {
                 completeCurrentCard();
             }, 450);
@@ -852,7 +877,9 @@ const rawTerms = [
         optionButtons[index].classList.remove('correct');
         optionButtons[index].classList.add('incorrect');
         state.paused = true;
-        frontHintEl.textContent = 'Неверно. Таймер остановлен — прочитай карточку и нажми «Продолжить».';
+        frontHintEl.textContent = state.pendingSessionEnd
+            ? 'Неверно. Время уже вышло — прочитай карточку и нажми «Продолжить», чтобы завершить сессию.'
+            : 'Неверно. Таймер остановлен — прочитай карточку и нажми «Продолжить».';
         flashcardEl.classList.add('is-flipped');
         continueWrapEl.classList.add('visible');
     }
