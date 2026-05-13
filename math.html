@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Year 5 Maths Session</title>
+    <style>
+        :root {
+            --bg: #eef4ff;
+            --panel: #ffffff;
+            --card-front: #f7fbff;
+            --card-back: #ffffff;
+            --border: #d9e3f0;
+            --text: #172033;
+            --muted: #667085;
+            --accent: #2563eb;
+            --accent-dark: #1d4ed8;
+            --success: #16a34a;
+            --success-dark: #15803d;
+            --shadow: 0 18px 50px rgba(37, 99, 235, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            background: linear-gradient(180deg, #f3f7ff 0%, var(--bg) 100%);
+            font-family: Arial, sans-serif;
+            color: var(--text);
+        }
+
+        .app {
+            width: min(920px, 100%);
+        }
+
+        .session-shell,
+        .end-screen {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 26px;
+            box-shadow: var(--shadow);
+            padding: 22px;
+        }
+
+        .session-top {
+            display: flex;
+            gap: 12px;
+            justify-content: space-between;
+            align-items: stretch;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+        }
+
+        .stat-pill {
+            flex: 1 1 180px;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 14px 16px;
+            background: #fbfdff;
+        }
+
+        .stat-label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 6px;
+        }
+
+        .stat-value {
+            font-size: 30px;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+
+        .flashcard {
+            perspective: 1600px;
+        }
+
+        .flashcard-inner {
+            position: relative;
+            min-height: 470px;
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
+        }
+
+        .flashcard.is-flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            inset: 0;
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 26px;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .card-front {
+            background: var(--card-front);
+            align-items: center;
+            text-align: center;
+        }
+
+        .card-back {
+            background: var(--card-back);
+            transform: rotateY(180deg);
+            justify-content: flex-start;
+        }
+
+        .category-badge {
+            display: inline-block;
+            align-self: center;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: #dbeafe;
+            color: #1d4ed8;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .term {
+            margin: 0 0 14px;
+            font-size: clamp(34px, 6vw, 56px);
+            line-height: 1.05;
+        }
+
+        .hint {
+            margin: 0;
+            max-width: 620px;
+            color: var(--muted);
+            font-size: 18px;
+            line-height: 1.5;
+        }
+
+        .back-grid {
+            display: grid;
+            gap: 14px;
+        }
+
+        .info-box {
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 16px 18px;
+            background: #fbfdff;
+        }
+
+        .continue-wrap {
+            display: none;
+            margin-top: 4px;
+        }
+
+        .continue-wrap.visible {
+            display: block;
+        }
+
+        .continue-btn {
+            width: 100%;
+            background: var(--accent);
+            color: white;
+        }
+
+        .continue-btn:hover {
+            background: var(--accent-dark);
+        }
+
+        .info-title {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .translation {
+            font-size: 28px;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .explanation,
+        .example-en,
+        .example-ru {
+            margin: 0;
+            font-size: 18px;
+            line-height: 1.55;
+        }
+
+        .example-ru {
+            margin-top: 8px;
+            color: var(--muted);
+        }
+
+        .actions {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        button {
+            border: none;
+            border-radius: 16px;
+            padding: 16px 18px;
+            font-size: 18px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .option-btn {
+            min-height: 88px;
+            background: #eef4ff;
+            color: var(--text);
+            border: 1px solid var(--border);
+            text-align: left;
+            line-height: 1.35;
+        }
+
+        .option-btn:hover {
+            background: #e4edff;
+        }
+
+        .option-btn.correct,
+        .option-btn:disabled.correct {
+            background: #dcfce7;
+            color: #166534;
+            border-color: #86efac;
+        }
+
+        .option-btn.incorrect,
+        .option-btn:disabled.incorrect {
+            background: #fee2e2;
+            color: #991b1b;
+            border-color: #fca5a5;
+        }
+
+        .option-btn:disabled {
+            cursor: default;
+            opacity: 1;
+        }
+
+        .end-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .end-screen h1 {
+            margin: 0 0 12px;
+            font-size: clamp(30px, 5vw, 46px);
+        }
+
+        .end-screen p {
+            margin: 10px 0;
+            color: var(--muted);
+            font-size: 18px;
+            line-height: 1.5;
+        }
+
+        .result-box {
+            margin: 18px auto 0;
+            max-width: 420px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background: #fbfdff;
+            padding: 18px;
+        }
+
+        .result-number {
+            font-size: 56px;
+            font-weight: 900;
+            line-height: 1;
+            color: var(--accent);
+        }
+
+        .retry-btn {
+            margin-top: 22px;
+            min-width: 240px;
+            background: var(--accent);
+            color: white;
+        }
+
+        .retry-btn:hover {
+            background: var(--accent-dark);
+        }
+
+        @media (max-width: 720px) {
+            .session-shell,
+            .end-screen {
+                padding: 16px;
+                border-radius: 22px;
+            }
+
+            .flashcard-inner {
+                min-height: 530px;
+            }
+
+            .card-face {
+                padding: 18px;
+            }
+
+            .actions {
+                grid-template-columns: 1fr;
+            }
+
+            .translation {
+                font-size: 24px;
+            }
+
+            .explanation,
+            .example-en,
+            .example-ru,
+            .hint {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="app">
+    <section id="sessionScreen" class="session-shell">
+        <div class="session-top">
+            <div class="stat-pill">
+                <span class="stat-label">Время</span>
+                <div class="stat-value" id="timer">00:30</div>
+            </div>
+            <div class="stat-pill">
+                <span class="stat-label">Пройдено карточек</span>
+                <div class="stat-value" id="passedCount">0</div>
+            </div>
+            <div class="stat-pill">
+                <span class="stat-label">Рекорд</span>
+                <div class="stat-value" id="bestScore">0</div>
+            </div>
+        </div>
+
+        <div id="flashcard" class="flashcard">
+            <div class="flashcard-inner">
+                <div class="card-face card-front">
+                    <div class="category-badge" id="frontCategory"></div>
+                    <h1 class="term" id="frontTerm"></h1>
+                    <p class="hint" id="frontHint">Выбери правильный перевод термина. Если ответ неверный, карточка покажет объяснение и вернётся позже.</p>
+                </div>
+                <div class="card-face card-back">
+                    <div class="category-badge" id="backCategory"></div>
+                    <div class="back-grid">
+                        <div class="info-box">
+                            <span class="info-title">Перевод</span>
+                            <div class="translation" id="backTranslation"></div>
+                        </div>
+                        <div class="info-box">
+                            <span class="info-title">Пояснение</span>
+                            <p class="explanation" id="backExplanation"></p>
+                        </div>
+                        <div class="info-box">
+                            <span class="info-title">Пример</span>
+                            <p class="example-en" id="backExampleEn"></p>
+                            <p class="example-ru" id="backExampleRu"></p>
+                        </div>
+                        <div id="continueWrap" class="continue-wrap">
+                            <button id="continueBtn" class="continue-btn">Продолжить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button id="optionBtn0" class="option-btn"></button>
+            <button id="optionBtn1" class="option-btn"></button>
+            <button id="optionBtn2" class="option-btn"></button>
+            <button id="optionBtn3" class="option-btn"></button>
+        </div>
+    </section>
+
+    <section id="endScreen" class="end-screen">
+        <h1 id="endTitle">Отличная работа!</h1>
+        <p id="endText">Сессия завершена.</p>
+        <div class="result-box">
+            <div class="result-number" id="finalCount">0</div>
+            <p>карточек пройдено за эту сессию</p>
+            <p><strong>Лучший результат:</strong> <span id="bestScoreEnd">0</span></p>
+            <p id="recordMessage"></p>
+        </div>
+        <button id="retryBtn" class="retry-btn">Попробовать ещё раз</button>
+    </section>
+</div>
+
+<script>
+const rawTerms = [
+        ["Самые базовые слова", "number", "число", "Количество или математический объект, который можно записать цифрами или словами.", "Write the number 18 in the box.", "Запиши число 18 в рамку."],
+        ["Самые базовые слова", "count", "считать", "Называть числа по порядку, чтобы узнать, сколько предметов есть.", "Count the stars.", "Сосчитай звёзды."],
+        ["Самые базовые слова", "write", "запиши", "Написать число, ответ или выражение.", "Write your answer here.", "Запиши свой ответ здесь."],
+        ["Самые базовые слова", "read", "прочитай", "Посмотреть на число, слово или задачу и понять, что там написано.", "Read the question carefully.", "Внимательно прочитай вопрос."],
+        ["Самые базовые слова", "sign", "знак", "Символ в математике, например +, -, =, < или >.", "Choose the correct sign.", "Выбери правильный знак."],
+        ["Самые базовые слова", "plus", "плюс", "Слово или знак для сложения.", "Three plus four equals seven.", "Три плюс четыре равно семи."],
+        ["Самые базовые слова", "minus", "минус", "Слово или знак для вычитания.", "Ten minus six equals four.", "Десять минус шесть равно четырём."],
+        ["Самые базовые слова", "equals", "равно", "Показывает, что левая и правая части имеют одно и то же значение.", "Five plus two equals seven.", "Пять плюс два равно семи."],
+        ["Самые базовые слова", "answer", "ответ", "Число или решение, которое получилось после выполнения задания.", "Check your answer.", "Проверь свой ответ."],
+        ["Самые базовые слова", "question", "вопрос", "То, что нужно прочитать и выполнить в задании.", "Read the question before you start.", "Прочитай вопрос перед тем, как начать."],
+        ["Самые базовые слова", "problem", "задача", "Математическое задание, где нужно понять условие и найти ответ.", "Solve the problem.", "Реши задачу."],
+        ["Самые базовые слова", "method", "способ", "Путь или приём, которым решают задачу.", "Show your method.", "Покажи свой способ решения."],
+        ["Самые базовые слова", "row", "ряд", "Линия объектов или чисел по горизонтали.", "There are 5 squares in each row.", "В каждом ряду по 5 квадратов."],
+        ["Самые базовые слова", "column", "столбец", "Линия объектов или чисел по вертикали.", "Write the numbers in the correct column.", "Запиши числа в правильный столбец."],
+        ["Самые базовые слова", "pair", "пара", "Два предмета вместе.", "Circle the pair of equal numbers.", "Обведи пару одинаковых чисел."],
+        ["Самые базовые слова", "group", "группа", "Несколько предметов, собранных вместе.", "Put the counters into groups of 4.", "Разложи фишки на группы по 4."],
+        ["Самые базовые слова", "whole", "целое", "Весь предмет или всё количество полностью, без деления на части.", "The pizza is one whole.", "Пицца — это одно целое."],
+        ["Самые базовые слова", "part", "часть", "Один кусочек или одна доля от целого.", "Shade one part of the shape.", "Закрась одну часть фигуры."],
+        ["Самые базовые слова", "half", "половина", "Одна из двух равных частей целого.", "Half of 10 is 5.", "Половина от 10 — это 5."],
+        ["Самые базовые слова", "quarter", "четверть", "Одна из четырёх равных частей целого.", "A quarter of 12 is 3.", "Четверть от 12 — это 3."],
+        ["Самые базовые слова", "more", "больше", "Показывает, что количество увеличивается или одно число больше другого.", "Which number is 2 more than 7?", "Какое число на 2 больше, чем 7?"],
+        ["Самые базовые слова", "fewer", "меньше", "Показывает, что предметов или единиц стало меньше.", "Tom has fewer stickers than Sam.", "У Тома меньше наклеек, чем у Сэма."],
+        ["Самые базовые слова", "same", "одинаковый", "Равный по значению, размеру или количеству.", "Both shapes have the same area.", "У обеих фигур одинаковая площадь."],
+        ["Самые базовые слова", "before", "до, перед", "Раньше по порядку или раньше по времени.", "What number comes before 20?", "Какое число стоит перед 20?"],
+        ["Самые базовые слова", "after", "после", "Позже по порядку или позже по времени.", "What number comes after 49?", "Какое число идёт после 49?"],
+        ["Самые базовые слова", "between", "между", "Находится посередине между двумя числами или предметами.", "What number is between 8 and 10?", "Какое число находится между 8 и 10?"],
+        ["Самые базовые слова", "next", "следующий", "Идущий сразу после чего-то.", "Write the next number in the pattern.", "Запиши следующее число в последовательности."],
+        ["Самые базовые слова", "shape", "фигура, форма", "Плоский или объёмный объект определённого вида.", "Name the shape.", "Назови фигуру."],
+        ["Самые базовые слова", "corner", "угол, уголок", "Место, где встречаются две стороны фигуры.", "A square has 4 corners.", "У квадрата 4 угла."],
+        ["Самые базовые слова", "straight line", "прямая линия", "Линия без изгибов.", "Draw a straight line.", "Нарисуй прямую линию."],
+        ["Самые базовые слова", "curved line", "кривая линия", "Линия, которая изгибается.", "A circle has a curved line all around it.", "У круга по краю идёт кривая линия."],
+        ["Самые базовые слова", "ruler", "линейка", "Инструмент для измерения длины и рисования прямых линий.", "Use a ruler to measure the line.", "Используй линейку, чтобы измерить линию."],
+        ["Самые базовые слова", "millimetre", "миллиметр", "Очень маленькая единица длины; 10 миллиметров = 1 сантиметр.", "The line is 35 millimetres long.", "Линия длиной 35 миллиметров."],
+        ["Самые базовые слова", "clock", "часы", "Прибор, который показывает время.", "Look at the clock.", "Посмотри на часы."],
+        ["Самые базовые слова", "minute", "минута", "Единица времени; 60 минут составляют 1 час.", "The lesson starts in 10 minutes.", "Урок начнётся через 10 минут."],
+        ["Самые базовые слова", "hour", "час", "Единица времени; 1 час = 60 минут.", "The film is one hour long.", "Фильм длится один час."],
+        ["Самые базовые слова", "o'clock", "ровно", "Используется, когда говорят точное количество часов без минут.", "It is 4 o'clock.", "Сейчас четыре часа ровно."],
+        ["Самые базовые слова", "pound", "фунт", "Основная денежная единица в Великобритании.", "The book costs 2 pounds.", "Книга стоит 2 фунта."],
+        ["Самые базовые слова", "pence", "пенсы", "Более мелкая денежная единица: 100 пенсов = 1 фунт.", "The apple costs 35 pence.", "Яблоко стоит 35 пенсов."],
+        ["Самые базовые слова", "coin", "монета", "Металлические деньги.", "How many coins are there?", "Сколько здесь монет?"],
+        ["Самые базовые слова", "change", "сдача", "Деньги, которые возвращают после оплаты, если заплатили больше нужного.", "What change do you get from £1?", "Какую сдачу ты получишь с 1 фунта?"] ,
+        ["Числа и разрядность", "digit", "цифра", "Отдельный знак от 0 до 9, из которого записывают числа.", "The number 54 has two digits: 5 and 4.", "В числе 54 две цифры: 5 и 4."],
+        ["Числа и разрядность", "place value", "разряд, значение цифры в числе", "Показывает, сколько стоит цифра в зависимости от её места в числе.", "In 352, the 5 has a place value of 50.", "В числе 352 цифра 5 означает 50, потому что стоит в разряде десятков."],
+        ["Числа и разрядность", "ones", "единицы", "Разряд единиц: цифра показывает, сколько отдельных единиц в числе.", "In 246, the 6 is in the ones column.", "В числе 246 цифра 6 стоит в разряде единиц."],
+        ["Числа и разрядность", "tens", "десятки", "Разряд десятков: цифра показывает количество десятков.", "In 246, the 4 is in the tens column.", "В числе 246 цифра 4 стоит в разряде десятков."],
+        ["Числа и разрядность", "hundreds", "сотни", "Разряд сотен: цифра показывает количество сотен.", "In 246, the 2 is in the hundreds column.", "В числе 246 цифра 2 стоит в разряде сотен."],
+        ["Числа и разрядность", "thousands", "тысячи", "Разряд тысяч: цифра показывает количество тысяч.", "In 4,321, the 4 is in the thousands column.", "В числе 4 321 цифра 4 стоит в разряде тысяч."],
+        ["Числа и разрядность", "compare", "сравнить", "Сопоставить числа и понять, какое больше, меньше или равно другому.", "Compare 3,456 and 3,465.", "Сравни 3 456 и 3 465."],
+        ["Числа и разрядность", "order", "расположить по порядку", "Расставить числа от меньшего к большему или от большего к меньшему.", "Order these numbers from smallest to largest: 12, 7, 19.", "Расположи числа от меньшего к большему: 12, 7, 19."],
+        ["Числа и разрядность", "greater than", "больше чем", "Показывает, что одно число больше другого.", "8 is greater than 5.", "8 больше, чем 5."],
+        ["Числа и разрядность", "less than", "меньше чем", "Показывает, что одно число меньше другого.", "6 is less than 9.", "6 меньше, чем 9."],
+        ["Числа и разрядность", "equal to", "равно", "Показывает, что два значения одинаковы.", "12 is equal to 7 + 5.", "12 равно 7 + 5."],
+        ["Числа и разрядность", "round", "округлить", "Заменить число ближайшим удобным числом по правилу округления.", "Round 4,782 to the nearest hundred.", "Округли 4 782 до ближайшей сотни."],
+        ["Числа и разрядность", "estimate", "оценить, прикинуть", "Найти примерный ответ без точного вычисления.", "Estimate 198 + 203.", "Прикинь примерно, сколько будет 198 + 203."],
+        ["Числа и разрядность", "sequence", "последовательность", "Ряд чисел или объектов, идущих по определённому правилу.", "Complete the sequence: 5, 10, 15, 20.", "Продолжи последовательность: 5, 10, 15, 20."],
+        ["Числа и разрядность", "pattern", "закономерность, узор", "Повторяющееся или меняющееся по правилу расположение чисел или фигур.", "The pattern is red, blue, red, blue.", "Закономерность такая: красный, синий, красный, синий."],
+        ["Числа и разрядность", "odd number", "нечётное число", "Число, которое не делится на 2 без остатка.", "11 is an odd number.", "11 — нечётное число."],
+        ["Числа и разрядность", "even number", "чётное число", "Число, которое делится на 2 без остатка.", "24 is an even number.", "24 — чётное число."],
+
+        ["Действия и слова в задачах", "add", "сложить", "Выполнить действие сложения: соединить количества вместе.", "Add 27 and 15.", "Сложи 27 и 15."],
+        ["Действия и слова в задачах", "sum", "сумма", "Результат сложения двух или нескольких чисел.", "What is the sum of 8 and 6?", "Чему равна сумма 8 и 6?"],
+        ["Действия и слова в задачах", "total", "итого, общий результат", "Общее количество после того, как всё сложили вместе.", "The total cost is £12.", "Общая стоимость — 12 фунтов."],
+        ["Действия и слова в задачах", "subtract", "вычесть", "Убрать одно число из другого.", "Subtract 9 from 25.", "Вычти 9 из 25."],
+        ["Действия и слова в задачах", "difference", "разность, разница", "Результат вычитания; показывает, насколько одно число отличается от другого.", "What is the difference between 18 and 11?", "Какова разность между 18 и 11?"],
+        ["Действия и слова в задачах", "multiply", "умножить", "Повторить одно и то же число несколько раз.", "Multiply 4 by 6.", "Умножь 4 на 6."],
+        ["Действия и слова в задачах", "product", "произведение", "Результат умножения.", "The product of 3 and 7 is 21.", "Произведение 3 и 7 равно 21."],
+        ["Действия и слова в задачах", "divide", "делить", "Разбить число на равные части или узнать, сколько раз одно число помещается в другом.", "Divide 20 by 5.", "Раздели 20 на 5."],
+        ["Действия и слова в задачах", "quotient", "частное", "Результат деления.", "The quotient of 20 and 5 is 4.", "Частное от деления 20 на 5 равно 4."],
+        ["Действия и слова в задачах", "remainder", "остаток", "То, что остаётся после деления, если разделить поровну нельзя.", "17 divided by 5 gives a remainder of 2.", "17 разделить на 5 — остаток 2."],
+        ["Действия и слова в задачах", "inverse", "обратное действие", "Действие, которое отменяет другое действие.", "Addition and subtraction are inverse operations.", "Сложение и вычитание — обратные действия."],
+        ["Действия и слова в задачах", "equation", "уравнение", "Запись, где два выражения равны между собой.", "8 + 4 = 12 is an equation.", "8 + 4 = 12 — это уравнение (равенство)."],
+        ["Действия и слова в задачах", "solve", "решить", "Найти ответ или неизвестное значение.", "Solve 3 + x = 10.", "Реши: 3 + x = 10."],
+        ["Действия и слова в задачах", "work out", "вычисли, найди", "Частая формулировка в задании: посчитать ответ.", "Work out 45 ÷ 9.", "Вычисли 45 ÷ 9."],
+        ["Действия и слова в задачах", "altogether", "всего, altogether", "Подсказывает, что нужно найти общее количество, обычно сложением.", "There are 7 red balls and 5 blue balls altogether.", "Всего 7 красных и 5 синих мячей."],
+        ["Действия и слова в задачах", "each", "каждый, по", "Показывает количество для одного предмета или одной группы.", "Each bag has 4 apples.", "В каждой сумке по 4 яблока."],
+        ["Действия и слова в задачах", "share equally", "разделить поровну", "Раздать или разделить так, чтобы у всех было одинаково.", "Share 12 sweets equally between 3 children.", "Раздели 12 конфет поровну между 3 детьми."],
+        ["Действия и слова в задачах", "left over", "осталось", "То, что не использовали или не смогли разделить поровну.", "If 14 cakes are shared between 4 children, 2 are left over.", "Если 14 пирожных разделить между 4 детьми, останется 2."],
+        ["Действия и слова в задачах", "double", "удвоить", "Умножить на 2.", "Double 9.", "Удвой 9."],
+        ["Действия и слова в задачах", "halve", "разделить пополам", "Разделить на 2.", "Halve 18.", "Раздели 18 пополам."],
+        ["Действия и слова в задачах", "mental method", "устный способ", "Решение в уме, без длинной записи столбиком.", "Use a mental method to calculate 20 + 30.", "Вычисли 20 + 30 устно."],
+        ["Действия и слова в задачах", "column method", "решение столбиком", "Способ записывать действия по разрядам один под другим.", "Use the column method for 347 + 286.", "Реши 347 + 286 столбиком."],
+
+        ["Дроби, десятичные дроби и проценты", "factor", "делитель, множитель", "Число, на которое другое число делится без остатка.", "3 is a factor of 12.", "3 — делитель числа 12."],
+        ["Дроби, десятичные дроби и проценты", "multiple", "кратное", "Число, которое получается при умножении данного числа на целое число.", "20 is a multiple of 5.", "20 — кратное 5."],
+        ["Дроби, десятичные дроби и проценты", "prime number", "простое число", "Число больше 1, у которого только два делителя: 1 и само это число.", "13 is a prime number.", "13 — простое число."],
+        ["Дроби, десятичные дроби и проценты", "square number", "квадратное число", "Число, которое получается, если умножить число само на себя.", "25 is a square number because 5 × 5 = 25.", "25 — квадратное число, потому что 5 × 5 = 25."],
+        ["Дроби, десятичные дроби и проценты", "fraction", "дробь", "Часть целого или несколько равных частей целого.", "One half can be written as a fraction: 1/2.", "Одна вторая записывается дробью: 1/2."],
+        ["Дроби, десятичные дроби и проценты", "numerator", "числитель", "Верхнее число в дроби: показывает, сколько частей взято.", "In 3/4, the numerator is 3.", "В дроби 3/4 числитель — 3."],
+        ["Дроби, десятичные дроби и проценты", "denominator", "знаменатель", "Нижнее число в дроби: показывает, на сколько равных частей разделено целое.", "In 3/4, the denominator is 4.", "В дроби 3/4 знаменатель — 4."],
+        ["Дроби, десятичные дроби и проценты", "mixed number", "смешанное число", "Число, где есть целая часть и дробная часть.", "1 1/2 is a mixed number.", "1 1/2 — это смешанное число."],
+        ["Дроби, десятичные дроби и проценты", "equivalent fractions", "равные дроби", "Дроби, которые выглядят по-разному, но обозначают одну и ту же величину.", "1/2 and 2/4 are equivalent fractions.", "1/2 и 2/4 — равные дроби."],
+        ["Дроби, десятичные дроби и проценты", "simplify", "сократить, упростить", "Записать дробь в более простом виде, не меняя её значение.", "Simplify 4/8 to 1/2.", "Сократи 4/8 до 1/2."],
+        ["Дроби, десятичные дроби и проценты", "decimal", "десятичная дробь", "Число, записанное с десятичной точкой.", "0.7 is a decimal.", "0.7 — это десятичная дробь."],
+        ["Дроби, десятичные дроби и проценты", "decimal point", "десятичная точка", "Точка, которая отделяет целую часть числа от дробной.", "In 3.14, the decimal point separates whole numbers and parts.", "В числе 3.14 десятичная точка отделяет целую часть от дробной."],
+        ["Дроби, десятичные дроби и проценты", "tenths", "десятые", "Части, когда целое разделено на 10 равных частей.", "0.4 means four tenths.", "0.4 означает четыре десятых."],
+        ["Дроби, десятичные дроби и проценты", "hundredths", "сотые", "Части, когда целое разделено на 100 равных частей.", "0.35 means thirty-five hundredths.", "0.35 означает тридцать пять сотых."],
+        ["Дроби, десятичные дроби и проценты", "percentage", "процент", "Способ показать часть от 100.", "50% is a percentage.", "50% — это процент."],
+        ["Дроби, десятичные дроби и проценты", "per cent", "процентов, из ста", "Буквально значит «на сто» или «из ста».", "Per cent means out of one hundred.", "Per cent означает «из ста»."],
+
+        ["Измерения", "length", "длина", "Насколько длинный предмет или расстояние от одного конца до другого.", "Measure the length of the pencil.", "Измерь длину карандаша."],
+        ["Измерения", "mass", "масса", "Сколько вещества в предмете; в школе обычно измеряют в граммах и килограммах.", "The mass of the apple is 150 grams.", "Масса яблока — 150 граммов."],
+        ["Измерения", "weight", "вес", "Насколько тяжёлым кажется предмет; в заданиях часто используют рядом со словом mass.", "The suitcase has a weight of 12 kilograms.", "Чемодан весит 12 килограммов."],
+        ["Измерения", "capacity", "вместимость", "Сколько жидкости может поместиться в сосуд.", "The bottle has a capacity of 1 litre.", "Вместимость бутылки — 1 литр."],
+        ["Измерения", "volume", "объём", "Сколько места занимает тело или сколько кубических единиц внутри фигуры.", "Find the volume of the cuboid.", "Найди объём прямоугольного параллелепипеда."],
+        ["Измерения", "perimeter", "периметр", "Общая длина границы фигуры; сумма длин всех сторон.", "Find the perimeter of the rectangle.", "Найди периметр прямоугольника."],
+        ["Измерения", "area", "площадь", "Сколько места занимает поверхность фигуры.", "The area of the rectangle is 24 square centimetres.", "Площадь прямоугольника — 24 квадратных сантиметра."],
+        ["Измерения", "metre", "метр", "Единица измерения длины.", "The room is 5 metres long.", "Комната длиной 5 метров."],
+        ["Измерения", "centimetre", "сантиметр", "Меньшая единица длины; 100 сантиметров = 1 метр.", "The pencil is 12 centimetres long.", "Карандаш длиной 12 сантиметров."],
+        ["Измерения", "kilometre", "километр", "Большая единица длины, часто для дорог и расстояний.", "The village is 3 kilometres away.", "Деревня находится в 3 километрах."],
+        ["Измерения", "gram", "грамм", "Единица измерения массы для лёгких предметов.", "This chocolate bar weighs 100 grams.", "Эта шоколадка весит 100 граммов."],
+        ["Измерения", "kilogram", "килограмм", "Более крупная единица массы; 1000 граммов = 1 килограмм.", "A bag of rice weighs 2 kilograms.", "Пакет риса весит 2 килограмма."],
+        ["Измерения", "litre", "литр", "Единица измерения вместимости для жидкостей.", "The jug holds 2 litres of water.", "Кувшин вмещает 2 литра воды."],
+        ["Измерения", "millilitre", "миллилитр", "Меньшая единица объёма жидкости; 1000 мл = 1 литр.", "Add 250 millilitres of milk.", "Добавь 250 миллилитров молока."],
+
+        ["Геометрия и фигуры", "polygon", "многоугольник", "Плоская фигура из прямых отрезков.", "A pentagon is a polygon.", "Пятиугольник — это многоугольник."],
+        ["Геометрия и фигуры", "side", "сторона", "Один из прямых отрезков, образующих фигуру.", "A square has 4 equal sides.", "У квадрата 4 равные стороны."],
+        ["Геометрия и фигуры", "vertex", "вершина", "Точка, где встречаются две стороны или рёбра.", "A triangle has 3 vertices.", "У треугольника 3 вершины."],
+        ["Геометрия и фигуры", "face", "грань", "Плоская поверхность у объёмной фигуры.", "A cube has 6 faces.", "У куба 6 граней."],
+        ["Геометрия и фигуры", "edge", "ребро", "Линия, где встречаются две грани объёмной фигуры.", "A cube has 12 edges.", "У куба 12 рёбер."],
+        ["Геометрия и фигуры", "angle", "угол", "Поворот между двумя линиями или сторонами.", "Measure the angle with a protractor.", "Измерь угол транспортиром."],
+        ["Геометрия и фигуры", "right angle", "прямой угол", "Угол в 90 градусов.", "A square has 4 right angles.", "У квадрата 4 прямых угла."],
+        ["Геометрия и фигуры", "acute angle", "острый угол", "Угол меньше прямого угла.", "An acute angle is smaller than a right angle.", "Острый угол меньше прямого угла."],
+        ["Геометрия и фигуры", "obtuse angle", "тупой угол", "Угол больше прямого, но меньше развёрнутого.", "An obtuse angle is bigger than a right angle.", "Тупой угол больше прямого угла."],
+        ["Геометрия и фигуры", "parallel", "параллельный", "Линии, которые всегда идут рядом и никогда не пересекаются.", "Railway tracks are parallel lines.", "Железнодорожные рельсы — параллельные линии."],
+        ["Геометрия и фигуры", "perpendicular", "перпендикулярный", "Линии, которые пересекаются под прямым углом.", "The corner of a book shows perpendicular lines.", "Угол книги показывает перпендикулярные линии."],
+        ["Геометрия и фигуры", "line of symmetry", "ось симметрии", "Линия, по которой фигуру можно сложить на две одинаковые половины.", "A square has 4 lines of symmetry.", "У квадрата 4 оси симметрии."],
+        ["Геометрия и фигуры", "symmetrical", "симметричный", "Такой, у которого две стороны совпадают при отражении.", "A butterfly is often symmetrical.", "Бабочка часто симметрична."],
+        ["Геометрия и фигуры", "triangle", "треугольник", "Фигура с тремя сторонами.", "This triangle has 3 sides.", "У этого треугольника 3 стороны."],
+        ["Геометрия и фигуры", "quadrilateral", "четырёхугольник", "Фигура с четырьмя сторонами.", "A rectangle is a quadrilateral.", "Прямоугольник — это четырёхугольник."],
+        ["Геометрия и фигуры", "rectangle", "прямоугольник", "Четырёхугольник с четырьмя прямыми углами.", "A rectangle has 4 sides and 4 right angles.", "У прямоугольника 4 стороны и 4 прямых угла."],
+        ["Геометрия и фигуры", "square", "квадрат", "Прямоугольник, у которого все стороны равны.", "A square has 4 equal sides.", "У квадрата 4 равные стороны."],
+        ["Геометрия и фигуры", "circle", "круг / окружность", "Круглая фигура без углов и прямых сторон.", "A circle has no straight sides.", "У круга нет прямых сторон."],
+        ["Геометрия и фигуры", "radius", "радиус", "Отрезок от центра круга до его края.", "The radius goes from the centre to the edge of a circle.", "Радиус идёт от центра круга до его края."],
+        ["Геометрия и фигуры", "diameter", "диаметр", "Отрезок через центр круга от одного края до другого.", "The diameter goes across the circle through the centre.", "Диаметр проходит через центр круга от одного края до другого."],
+
+        ["Координаты и графики", "coordinates", "координаты", "Пара чисел, которая показывает точное место точки на сетке.", "Plot the point (3, 2) on the grid.", "Отметь точку (3, 2) на сетке."],
+        ["Координаты и графики", "x-axis", "ось X, горизонтальная ось", "Горизонтальная линия на координатной сетке.", "Move along the x-axis first.", "Сначала двигайся вдоль оси X."],
+        ["Координаты и графики", "y-axis", "ось Y, вертикальная ось", "Вертикальная линия на координатной сетке.", "Then move up the y-axis.", "Потом поднимайся вверх по оси Y."],
+        ["Координаты и графики", "origin", "начало координат", "Точка, где пересекаются оси, обычно это (0, 0).", "The origin is the point (0, 0).", "Начало координат — это точка (0, 0)."],
+        ["Координаты и графики", "translation", "перенос", "Движение фигуры без поворота и без отражения.", "Translate the shape 2 squares to the right.", "Перенеси фигуру на 2 клетки вправо."],
+        ["Координаты и графики", "reflection", "отражение", "Показ фигуры как в зеркале относительно линии.", "Reflect the shape in the mirror line.", "Отрази фигуру относительно зеркальной линии."],
+        ["Координаты и графики", "clockwise", "по часовой стрелке", "Поворот в том же направлении, в каком движутся стрелки часов.", "Turn the shape clockwise.", "Поверни фигуру по часовой стрелке."],
+        ["Координаты и графики", "anticlockwise", "против часовой стрелки", "Поворот в направлении, противоположном движению стрелок часов.", "Rotate the arrow anticlockwise.", "Поверни стрелку против часовой стрелки."],
+        ["Координаты и графики", "data", "данные", "Информация, которую собрали и потом показывают в таблице или на графике.", "The data shows how many books children read.", "Данные показывают, сколько книг прочитали дети."],
+        ["Координаты и графики", "table", "таблица", "Упорядоченный способ записать данные в строках и столбцах.", "Complete the table with the missing numbers.", "Заполни таблицу недостающими числами."],
+        ["Координаты и графики", "bar chart", "столбчатая диаграмма", "Диаграмма, где данные показаны столбиками.", "Read the bar chart to see the favourite fruit.", "Посмотри на столбчатую диаграмму, чтобы узнать любимый фрукт."],
+        ["Координаты и графики", "line graph", "линейный график", "График, где точки соединены линией, чтобы показать изменение.", "The line graph shows how temperature changed.", "Линейный график показывает, как менялась температура."],
+        ["Координаты и графики", "scale", "шкала", "Деления на графике или линейке, которые показывают значение каждого шага.", "Check the scale before you read the graph.", "Проверь шкалу, прежде чем читать график."],
+    ];
+
+    const SESSION_SECONDS = 30;
+    const BEST_SCORE_KEY = 'year5-maths-best-score';
+
+    const terms = rawTerms.map(function (item) {
+        return {
+            category: item[0],
+            term: item[1],
+            translation: item[2],
+            explanation: item[3],
+            example: item[4],
+            exampleRu: item[5]
+        };
+    });
+
+    const sessionScreenEl = document.getElementById('sessionScreen');
+    const endScreenEl = document.getElementById('endScreen');
+    const timerEl = document.getElementById('timer');
+    const passedCountEl = document.getElementById('passedCount');
+    const bestScoreEl = document.getElementById('bestScore');
+    const flashcardEl = document.getElementById('flashcard');
+    const frontCategoryEl = document.getElementById('frontCategory');
+    const backCategoryEl = document.getElementById('backCategory');
+    const frontTermEl = document.getElementById('frontTerm');
+    const frontHintEl = document.getElementById('frontHint');
+    const backTranslationEl = document.getElementById('backTranslation');
+    const backExplanationEl = document.getElementById('backExplanation');
+    const backExampleEnEl = document.getElementById('backExampleEn');
+    const backExampleRuEl = document.getElementById('backExampleRu');
+    const continueWrapEl = document.getElementById('continueWrap');
+    const continueBtn = document.getElementById('continueBtn');
+    const optionButtons = [
+        document.getElementById('optionBtn0'),
+        document.getElementById('optionBtn1'),
+        document.getElementById('optionBtn2'),
+        document.getElementById('optionBtn3')
+    ];
+    const endTitleEl = document.getElementById('endTitle');
+    const endTextEl = document.getElementById('endText');
+    const finalCountEl = document.getElementById('finalCount');
+    const bestScoreEndEl = document.getElementById('bestScoreEnd');
+    const recordMessageEl = document.getElementById('recordMessage');
+    const retryBtn = document.getElementById('retryBtn');
+
+    const state = {
+        deck: [],
+        currentIndex: 0,
+        passed: 0,
+        timeLeft: SESSION_SECONDS,
+        timerId: null,
+        feedbackTimerId: null,
+        ended: false,
+        paused: false,
+        options: [],
+        answerLocked: false
+    };
+
+    let bestScore = loadBestScore();
+
+    function loadBestScore() {
+        if (typeof localStorage === 'undefined') {
+            return 0;
+        }
+
+        const savedValue = Number(localStorage.getItem(BEST_SCORE_KEY));
+        return Number.isFinite(savedValue) ? savedValue : 0;
+    }
+
+    function saveBestScore(value) {
+        if (typeof localStorage === 'undefined') {
+            return;
+        }
+
+        localStorage.setItem(BEST_SCORE_KEY, String(value));
+    }
+
+    function updateBestScoreDisplay() {
+        bestScoreEl.textContent = String(bestScore);
+        bestScoreEndEl.textContent = String(bestScore);
+    }
+
+    function shuffle(items) {
+        const copy = items.slice();
+        for (let i = copy.length - 1; i > 0; i -= 1) {
+            const j = Math.floor(Math.random() * (i + 1));
+            const temp = copy[i];
+            copy[i] = copy[j];
+            copy[j] = temp;
+        }
+        return copy;
+    }
+
+    function formatTime(totalSeconds) {
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+        const mm = String(minutes).padStart(2, '0');
+        const ss = String(seconds).padStart(2, '0');
+        return mm + ':' + ss;
+    }
+
+    function getCurrentCard() {
+        return state.deck[state.currentIndex] || null;
+    }
+
+    function updateStats() {
+        timerEl.textContent = formatTime(state.timeLeft);
+        passedCountEl.textContent = String(state.passed);
+    }
+
+    function clearFeedbackTimer() {
+        if (state.feedbackTimerId) {
+            clearTimeout(state.feedbackTimerId);
+            state.feedbackTimerId = null;
+        }
+    }
+
+    function getOptionTexts(card) {
+        const otherTranslations = Array.from(new Set(
+            terms
+                .map(function (item) { return item.translation; })
+                .filter(function (translation) { return translation !== card.translation; })
+        ));
+
+        return shuffle([card.translation].concat(shuffle(otherTranslations).slice(0, 3)));
+    }
+
+    function renderOptions() {
+        optionButtons.forEach(function (button, index) {
+            const optionText = state.options[index] || '';
+            button.textContent = optionText;
+            button.disabled = false;
+            button.className = 'option-btn';
+        });
+    }
+
+    function renderCard() {
+        const card = getCurrentCard();
+        if (!card) {
+            finishSession('completed');
+            return;
+        }
+
+        clearFeedbackTimer();
+        state.answerLocked = false;
+        state.paused = false;
+        state.options = getOptionTexts(card);
+
+        flashcardEl.classList.remove('is-flipped');
+        continueWrapEl.classList.remove('visible');
+        frontHintEl.textContent = 'Выбери правильный перевод термина. Если ответ неверный, таймер остановится, и можно будет спокойно прочитать карточку.';
+        frontCategoryEl.textContent = card.category;
+        backCategoryEl.textContent = card.category;
+        frontTermEl.textContent = card.term;
+        backTranslationEl.textContent = card.translation;
+        backExplanationEl.textContent = card.explanation;
+        backExampleEnEl.textContent = card.example;
+        backExampleRuEl.textContent = card.exampleRu;
+        renderOptions();
+    }
+
+    function tick() {
+        if (state.ended || state.paused) {
+            return;
+        }
+
+        state.timeLeft -= 1;
+        if (state.timeLeft <= 0) {
+            state.timeLeft = 0;
+            updateStats();
+            finishSession('timeout');
+            return;
+        }
+
+        updateStats();
+    }
+
+    function startSession() {
+        if (state.timerId) {
+            clearInterval(state.timerId);
+        }
+        clearFeedbackTimer();
+
+        state.deck = shuffle(terms);
+        state.currentIndex = 0;
+        state.passed = 0;
+        state.timeLeft = SESSION_SECONDS;
+        state.ended = false;
+        state.paused = false;
+
+        endScreenEl.style.display = 'none';
+        sessionScreenEl.style.display = 'block';
+        recordMessageEl.textContent = '';
+        updateBestScoreDisplay();
+        updateStats();
+        renderCard();
+        state.timerId = setInterval(tick, 1000);
+    }
+
+    function finishSession(reason) {
+        if (state.ended) {
+            return;
+        }
+
+        state.ended = true;
+        if (state.timerId) {
+            clearInterval(state.timerId);
+            state.timerId = null;
+        }
+        clearFeedbackTimer();
+
+        sessionScreenEl.style.display = 'none';
+        endScreenEl.style.display = 'block';
+        finalCountEl.textContent = String(state.passed);
+
+        if (state.passed > bestScore) {
+            bestScore = state.passed;
+            saveBestScore(bestScore);
+            recordMessageEl.textContent = '🎉 Новый рекорд!';
+        } else if (bestScore > 0) {
+            recordMessageEl.textContent = 'Рекорд сохранён на этом устройстве.';
+        } else {
+            recordMessageEl.textContent = '';
+        }
+
+        updateBestScoreDisplay();
+
+        if (reason === 'completed') {
+            endTitleEl.textContent = 'Ты прошёл все карточки!';
+            endTextEl.textContent = 'Супер! Ты успел закончить весь набор терминов до конца 30-секундной сессии.';
+        } else {
+            endTitleEl.textContent = 'Время вышло!';
+            endTextEl.textContent = 'Отличная работа — давай посмотрим, сколько карточек удалось пройти за 30 секунд.';
+        }
+    }
+
+    function moveCurrentCardToEnd() {
+        const card = state.deck.splice(state.currentIndex, 1)[0];
+        if (!card) {
+            renderCard();
+            return;
+        }
+
+        if (state.currentIndex >= state.deck.length) {
+            state.currentIndex = 0;
+        }
+        state.deck.push(card);
+        renderCard();
+    }
+
+    function completeCurrentCard() {
+        state.passed += 1;
+        state.deck.splice(state.currentIndex, 1);
+        if (state.currentIndex >= state.deck.length) {
+            state.currentIndex = 0;
+        }
+        updateStats();
+        renderCard();
+    }
+
+    function handleOptionClick(index) {
+        if (state.ended || state.answerLocked || state.paused) {
+            return;
+        }
+
+        const card = getCurrentCard();
+        const selectedText = state.options[index];
+        if (!card || !selectedText) {
+            return;
+        }
+
+        state.answerLocked = true;
+
+        optionButtons.forEach(function (button, buttonIndex) {
+            button.disabled = true;
+            if (state.options[buttonIndex] === card.translation) {
+                button.classList.add('correct');
+            }
+        });
+
+        if (selectedText === card.translation) {
+            frontHintEl.textContent = 'Верно!';
+            state.feedbackTimerId = setTimeout(function () {
+                completeCurrentCard();
+            }, 450);
+            return;
+        }
+
+        optionButtons[index].classList.remove('correct');
+        optionButtons[index].classList.add('incorrect');
+        state.paused = true;
+        frontHintEl.textContent = 'Неверно. Таймер остановлен — прочитай карточку и нажми «Продолжить».';
+        flashcardEl.classList.add('is-flipped');
+        continueWrapEl.classList.add('visible');
+    }
+
+    function continueAfterWrongAnswer() {
+        if (state.ended || !state.paused) {
+            return;
+        }
+
+        state.paused = false;
+        moveCurrentCardToEnd();
+    }
+
+    optionButtons.forEach(function (button, index) {
+        button.addEventListener('click', function () {
+            handleOptionClick(index);
+        });
+    });
+    continueBtn.addEventListener('click', continueAfterWrongAnswer);
+    retryBtn.addEventListener('click', startSession);
+
+    document.addEventListener('keydown', function (event) {
+        if (state.ended) {
+            if (event.key === 'Enter') {
+                startSession();
+            }
+            return;
+        }
+
+        if (state.paused) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                continueAfterWrongAnswer();
+            }
+            return;
+        }
+
+        const optionIndex = Number(event.key) - 1;
+        if (optionIndex >= 0 && optionIndex < 4) {
+            handleOptionClick(optionIndex);
+        }
+    });
+
+    startSession();
+</script>
+</body>
+</html>
