@@ -3,10 +3,13 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Flashcard App</title>
+    <title>Spelling Flashcards</title>
     <style>
         body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: #f4f4f4; }
         #app { text-align: center; }
+        .section-links { margin-bottom: 16px; }
+        .section-links a { display: inline-block; margin: 0 6px; padding: 10px 14px; border-radius: 999px; text-decoration: none; border: 1px solid #ccc; color: #222; background: white; font-weight: 600; }
+        .section-links a.active { background: #2563eb; border-color: #2563eb; color: white; }
 
         .card {
           height: 250px;
@@ -30,6 +33,10 @@
 <body>
 
 <div id="app">
+    <div class="section-links">
+        <a href="index.html" class="active">Spelling</a>
+        <a href="math.html">Year 5 Maths</a>
+    </div>
     <div id="menu">
         <button id="week1">Week 1</button>
         <button id="week2">Week 2</button>
@@ -73,76 +80,76 @@
 <script>
     const words = {
         week1: [
-            { word: "though", definition: "Despite the fact that; however.", translation: ["хотя", "однако"], pronunciation: "though", sample: "Though it was raining, we still went for a walk.", correctCount: 0, attempts: 0 },
-            { word: "although", definition: "In spite of the fact that.", translation: ["хотя", "несмотря на то что"], pronunciation: "although", sample: "Although he was tired, he finished his homework.", correctCount: 0, attempts: 0 },
-            { word: "dough", definition: "A mixture of flour and liquid used for baking bread or pastry.", translation: ["тесто"], pronunciation: "dough", sample: "She left the dough to rise in a warm place.", correctCount: 0, attempts: 0 },
-            { word: "doughnut", definition: "A small sweet fried cake, often ring-shaped.", translation: ["пончик"], pronunciation: "doughnut", sample: "He bought a jam doughnut from the bakery.", correctCount: 0, attempts: 0 },
-            { word: "through", definition: "From one side or end to the other.", translation: ["через", "сквозь"], pronunciation: "through", sample: "Sunlight shone through the window.", correctCount: 0, attempts: 0 },
-            { word: "cough", definition: "To force air out of the throat with a sudden noisy sound.", translation: ["кашлять", "кашель"], pronunciation: "cough", sample: "If you have a cough, drink plenty of water.", correctCount: 0, attempts: 0 },
-            { word: "trough", definition: "A long narrow container for food or water for animals.", translation: ["корыто", "желоб"], pronunciation: "trough", sample: "The farmer filled the trough with fresh water.", correctCount: 0, attempts: 0 },
-            { word: "rough", definition: "Not smooth or even; uneven or coarse.", translation: ["шероховатый", "грубый"], pronunciation: "rough", sample: "The path was rough and hard to walk on.", correctCount: 0, attempts: 0 },
-            { word: "tough", definition: "Strong and difficult to break or deal with.", translation: ["крепкий", "трудный"], pronunciation: "tough", sample: "It was a tough match, but our team won.", correctCount: 0, attempts: 0 },
-            { word: "enough", definition: "As much or as many as needed.", translation: ["достаточно"], pronunciation: "enough", sample: "We have enough time to catch the bus.", correctCount: 0, attempts: 0 }
+            { word: "definite", definition: "Clearly decided, certain, or exact.", translation: ["определённый", "точный"], pronunciation: "definite", sample: "We need a definite answer by Friday.", correctCount: 0, attempts: 0 },
+            { word: "desperate", definition: "Feeling or showing a hopeless need or urgency.", translation: ["отчаянный", "в отчаянии"], pronunciation: "desperate", sample: "He was desperate to find his lost dog.", correctCount: 0, attempts: 0 },
+            { word: "literate", definition: "Able to read and write.", translation: ["грамотный"], pronunciation: "literate", sample: "Most children become literate by the end of primary school.", correctCount: 0, attempts: 0 },
+            { word: "secretary", definition: "A person whose job includes office work, letters, and arranging meetings.", translation: ["секретарь"], pronunciation: "secretary", sample: "The secretary scheduled the meeting for Monday morning.", correctCount: 0, attempts: 0 },
+            { word: "stationary", definition: "Not moving; staying in one place.", translation: ["неподвижный", "стационарный"], pronunciation: "stationary", sample: "The car remained stationary at the red light.", correctCount: 0, attempts: 0 },
+            { word: "dictionary", definition: "A book or digital resource that lists words and their meanings.", translation: ["словарь"], pronunciation: "dictionary", sample: "She checked the spelling in the dictionary.", correctCount: 0, attempts: 0 },
+            { word: "Wednesday", definition: "The day of the week after Tuesday and before Thursday.", translation: ["среда"], pronunciation: "Wednesday", sample: "We have a music lesson on Wednesday.", correctCount: 0, attempts: 0 },
+            { word: "familiar", definition: "Well known to you or easy to recognise.", translation: ["знакомый"], pronunciation: "familiar", sample: "His voice sounded familiar to me.", correctCount: 0, attempts: 0 },
+            { word: "original", definition: "Existing from the beginning; first and not copied.", translation: ["первоначальный", "оригинальный"], pronunciation: "original", sample: "This is the original version of the painting.", correctCount: 0, attempts: 0 },
+            { word: "animal", definition: "A living creature such as a dog, bird, or lion.", translation: ["животное"], pronunciation: "animal", sample: "The zoo has an animal from every continent.", correctCount: 0, attempts: 0 }
         ],
         week2: [
-            { word: "plough", definition: "A farm tool or machine used to turn over soil; to turn over soil with it.", translation: ["плуг", "пахать"], pronunciation: "plough", sample: "Farmers plough the fields before planting seeds.", correctCount: 0, attempts: 0 },
-            { word: "bough", definition: "A large branch of a tree.", translation: ["сук", "ветвь дерева"], pronunciation: "bough", sample: "A bird was sitting on the bough of the oak tree.", correctCount: 0, attempts: 0 },
-            { word: "drought", definition: "A long period of unusually low rainfall.", translation: ["засуха"], pronunciation: "drought", sample: "The drought damaged crops across the region.", correctCount: 0, attempts: 0 },
-            { word: "brought", definition: "Past tense and past participle of bring.", translation: ["принёс", "привёл"], pronunciation: "brought", sample: "She brought her favourite book to school.", correctCount: 0, attempts: 0 },
-            { word: "bought", definition: "Past tense and past participle of buy.", translation: ["купил", "купила"], pronunciation: "bought", sample: "We bought fresh fruit at the market.", correctCount: 0, attempts: 0 },
-            { word: "wrought", definition: "Worked into shape, especially of metal; caused.", translation: ["кованый", "вызванный"], pronunciation: "wrought", sample: "The gate was made of wrought iron.", correctCount: 0, attempts: 0 },
-            { word: "thought", definition: "An idea or opinion produced by thinking; past tense of think.", translation: ["мысль", "думал"], pronunciation: "thought", sample: "Her first thought was to call for help.", correctCount: 0, attempts: 0 },
-            { word: "ought", definition: "Used to say what is right, advisable, or expected.", translation: ["следует", "должен"], pronunciation: "ought", sample: "You ought to apologise for being late.", correctCount: 0, attempts: 0 },
-            { word: "borough", definition: "A town or district that has its own local government.", translation: ["городской район", "боро"], pronunciation: "borough", sample: "She works for the local borough council.", correctCount: 0, attempts: 0 },
-            { word: "thorough", definition: "Complete, careful, and detailed.", translation: ["тщательный", "полный"], pronunciation: "thorough", sample: "The police carried out a thorough investigation.", correctCount: 0, attempts: 0 }
+            { word: "deflate", definition: "To let air or gas out of something.", translation: ["сдувать", "спускать"], pronunciation: "deflate", sample: "Use this valve to deflate the air mattress.", correctCount: 0, attempts: 0 },
+            { word: "deform", definition: "To spoil the usual shape of something.", translation: ["деформировать", "искажать"], pronunciation: "deform", sample: "The heat can deform plastic bottles.", correctCount: 0, attempts: 0 },
+            { word: "decode", definition: "To change a coded message into ordinary language.", translation: ["расшифровывать"], pronunciation: "decode", sample: "The computer helped us decode the hidden message.", correctCount: 0, attempts: 0 },
+            { word: "decompose", definition: "To break down into smaller parts, especially naturally.", translation: ["разлагаться", "разлагать"], pronunciation: "decompose", sample: "Leaves decompose quickly in damp soil.", correctCount: 0, attempts: 0 },
+            { word: "defuse", definition: "To make a dangerous or tense situation calmer or safer.", translation: ["обезвреживать", "разряжать обстановку"], pronunciation: "defuse", sample: "She tried to defuse the argument with a joke.", correctCount: 0, attempts: 0 },
+            { word: "recycle", definition: "To process used materials so they can be used again.", translation: ["перерабатывать"], pronunciation: "recycle", sample: "We recycle paper, glass, and plastic at school.", correctCount: 0, attempts: 0 },
+            { word: "rebuild", definition: "To build something again after damage or destruction.", translation: ["восстанавливать", "перестраивать"], pronunciation: "rebuild", sample: "The town plans to rebuild the bridge next year.", correctCount: 0, attempts: 0 },
+            { word: "rewrite", definition: "To write something again in a different or better way.", translation: ["переписывать"], pronunciation: "rewrite", sample: "Please rewrite the sentence more clearly.", correctCount: 0, attempts: 0 },
+            { word: "replace", definition: "To take the place of something or someone.", translation: ["заменять"], pronunciation: "replace", sample: "We need to replace the broken window.", correctCount: 0, attempts: 0 },
+            { word: "revisit", definition: "To return to a place, idea, or subject again.", translation: ["возвращаться к", "посещать снова"], pronunciation: "revisit", sample: "Let's revisit this topic after lunch.", correctCount: 0, attempts: 0 }
         ],
         week3: [
-            { word: "yesterday", definition: "On the day before today.", translation: ["вчера"], pronunciation: "yesterday", sample: "I saw my cousin yesterday after school.", correctCount: 0, attempts: 0 },
-            { word: "tomorrow", definition: "On the day after today.", translation: ["завтра"], pronunciation: "tomorrow", sample: "We are going to the museum tomorrow.", correctCount: 0, attempts: 0 },
-            { word: "later", definition: "At a time after the present or after a time mentioned.", translation: ["позже"], pronunciation: "later", sample: "I will finish my homework later this evening.", correctCount: 0, attempts: 0 },
-            { word: "immediately", definition: "At once; without delay.", translation: ["немедленно", "сразу"], pronunciation: "immediately", sample: "Please come here immediately.", correctCount: 0, attempts: 0 },
-            { word: "earlier", definition: "Before the usual or expected time.", translation: ["раньше"], pronunciation: "earlier", sample: "She arrived earlier than everyone else.", correctCount: 0, attempts: 0 },
-            { word: "eventually", definition: "In the end, especially after a long time.", translation: ["в конце концов", "со временем"], pronunciation: "eventually", sample: "After several attempts, he eventually solved the puzzle.", correctCount: 0, attempts: 0 },
-            { word: "recently", definition: "Not long ago.", translation: ["недавно"], pronunciation: "recently", sample: "I recently started learning to cook.", correctCount: 0, attempts: 0 },
-            { word: "previously", definition: "At an earlier time; before now.", translation: ["ранее", "прежде"], pronunciation: "previously", sample: "The building was previously a library.", correctCount: 0, attempts: 0 },
-            { word: "finally", definition: "At the end of a process or series of events.", translation: ["наконец", "в итоге"], pronunciation: "finally", sample: "We finally reached the top of the hill.", correctCount: 0, attempts: 0 },
-            { word: "lately", definition: "Recently; in the recent past.", translation: ["в последнее время", "недавно"], pronunciation: "lately", sample: "Have you seen Anna lately?", correctCount: 0, attempts: 0 }
+            { word: "overthrow", definition: "To remove a ruler or government from power by force.", translation: ["свергать"], pronunciation: "overthrow", sample: "The rebels planned to overthrow the king.", correctCount: 0, attempts: 0 },
+            { word: "overturn", definition: "To turn over or cause something to turn over.", translation: ["опрокидывать", "переворачивать"], pronunciation: "overturn", sample: "The strong wind could overturn a small boat.", correctCount: 0, attempts: 0 },
+            { word: "overslept", definition: "Slept longer than intended.", translation: ["проспал"], pronunciation: "overslept", sample: "I overslept and missed the first bus.", correctCount: 0, attempts: 0 },
+            { word: "overcook", definition: "To cook something for too long.", translation: ["переварить", "пережарить"], pronunciation: "overcook", sample: "Be careful not to overcook the pasta.", correctCount: 0, attempts: 0 },
+            { word: "overreact", definition: "To respond too strongly to something.", translation: ["слишком остро реагировать"], pronunciation: "overreact", sample: "He tends to overreact to small problems.", correctCount: 0, attempts: 0 },
+            { word: "overestimate", definition: "To think something is greater than it really is.", translation: ["переоценивать"], pronunciation: "overestimate", sample: "Do not overestimate how much time we have.", correctCount: 0, attempts: 0 },
+            { word: "overuse", definition: "To use something too much.", translation: ["чрезмерно использовать"], pronunciation: "overuse", sample: "Overuse of the phone can tire your eyes.", correctCount: 0, attempts: 0 },
+            { word: "overpaid", definition: "Paid more than the correct amount for something.", translation: ["переплатил", "заплатил слишком много"], pronunciation: "overpaid", sample: "We overpaid for the tickets because we booked late.", correctCount: 0, attempts: 0 },
+            { word: "overlook", definition: "To fail to notice something.", translation: ["не замечать", "упускать"], pronunciation: "overlook", sample: "I overlooked a small mistake in the report.", correctCount: 0, attempts: 0 },
+            { word: "overbalance", definition: "To lose balance and nearly fall, or cause something to tip too far.", translation: ["потерять равновесие", "перевесить"], pronunciation: "overbalance", sample: "He overbalanced and nearly fell off the chair.", correctCount: 0, attempts: 0 }
         ],
         week4: [
-            { word: "nearby", definition: "Not far away.", translation: ["поблизости", "рядом"], pronunciation: "nearby", sample: "There is a small park nearby.", correctCount: 0, attempts: 0 },
-            { word: "everywhere", definition: "In or to all places.", translation: ["везде", "повсюду"], pronunciation: "everywhere", sample: "We looked everywhere for the missing key.", correctCount: 0, attempts: 0 },
-            { word: "nowhere", definition: "In or to no place.", translation: ["нигде", "никуда"], pronunciation: "nowhere", sample: "The village is so small that it seems to be in the middle of nowhere.", correctCount: 0, attempts: 0 },
-            { word: "inside", definition: "In or into the inner part of something.", translation: ["внутри", "внутрь"], pronunciation: "inside", sample: "Please wait inside the building.", correctCount: 0, attempts: 0 },
-            { word: "downstairs", definition: "To or on a lower floor of a building.", translation: ["внизу", "вниз по лестнице"], pronunciation: "downstairs", sample: "My grandparents are sitting downstairs.", correctCount: 0, attempts: 0 },
-            { word: "outside", definition: "On or to the outer side of something.", translation: ["снаружи", "на улице"], pronunciation: "outside", sample: "The children are playing outside.", correctCount: 0, attempts: 0 },
-            { word: "upstairs", definition: "To or on an upper floor of a building.", translation: ["наверху", "вверх по лестнице"], pronunciation: "upstairs", sample: "Her bedroom is upstairs.", correctCount: 0, attempts: 0 },
-            { word: "underneath", definition: "Directly under or below something.", translation: ["под", "снизу"], pronunciation: "underneath", sample: "The cat was hiding underneath the table.", correctCount: 0, attempts: 0 },
-            { word: "behind", definition: "At the back of or further back than something.", translation: ["позади", "за"], pronunciation: "behind", sample: "He stood behind the door and waited.", correctCount: 0, attempts: 0 },
-            { word: "somewhere", definition: "In or to a place that is not known or not stated.", translation: ["где-то", "куда-то"], pronunciation: "somewhere", sample: "I left my glasses somewhere in the kitchen.", correctCount: 0, attempts: 0 }
+            { word: "boastful", definition: "Talking with too much pride about yourself or your achievements.", translation: ["хвастливый"], pronunciation: "boastful", sample: "His boastful comments annoyed the team.", correctCount: 0, attempts: 0 },
+            { word: "faithful", definition: "Loyal and reliable.", translation: ["верный", "преданный"], pronunciation: "faithful", sample: "The dog remained faithful to its owner.", correctCount: 0, attempts: 0 },
+            { word: "doubtful", definition: "Uncertain or not likely to be true.", translation: ["сомнительный", "неуверенный"], pronunciation: "doubtful", sample: "It is doubtful that the train will arrive on time.", correctCount: 0, attempts: 0 },
+            { word: "fearful", definition: "Feeling afraid or showing fear.", translation: ["испуганный", "боязливый"], pronunciation: "fearful", sample: "The child gave a fearful look at the dark room.", correctCount: 0, attempts: 0 },
+            { word: "thankful", definition: "Pleased and grateful.", translation: ["благодарный"], pronunciation: "thankful", sample: "I am thankful for your help.", correctCount: 0, attempts: 0 },
+            { word: "beautiful", definition: "Very pleasing to look at.", translation: ["красивый", "прекрасный"], pronunciation: "beautiful", sample: "They walked along a beautiful beach at sunset.", correctCount: 0, attempts: 0 },
+            { word: "pitiful", definition: "Causing feelings of sadness or sympathy because it is so bad or small.", translation: ["жалкий", "жалостный"], pronunciation: "pitiful", sample: "The stray puppy looked pitiful in the rain.", correctCount: 0, attempts: 0 },
+            { word: "plentiful", definition: "Existing in large amounts.", translation: ["обильный", "в большом количестве"], pronunciation: "plentiful", sample: "Fresh fruit is plentiful in summer.", correctCount: 0, attempts: 0 },
+            { word: "fanciful", definition: "Unusual and imaginative rather than practical.", translation: ["причудливый", "фантазийный"], pronunciation: "fanciful", sample: "She wrote a fanciful story about flying cats.", correctCount: 0, attempts: 0 },
+            { word: "merciful", definition: "Kind and forgiving, especially when punishment is possible.", translation: ["милосердный"], pronunciation: "merciful", sample: "The judge was merciful and gave a light sentence.", correctCount: 0, attempts: 0 }
         ],
         week5: [
-            { word: "sincere", definition: "Honest and genuine.", translation: ["искренний"], pronunciation: "sincere", sample: "She gave me a sincere apology.", correctCount: 0, attempts: 0 },
-            { word: "interfere", definition: "To get involved in a way that is not wanted or helpful.", translation: ["вмешиваться", "мешать"], pronunciation: "interfere", sample: "Try not to interfere in other people's arguments.", correctCount: 0, attempts: 0 },
-            { word: "sphere", definition: "A round three-dimensional shape like a ball; an area of activity.", translation: ["сфера", "шар"], pronunciation: "sphere", sample: "The Earth is not a perfect sphere.", correctCount: 0, attempts: 0 },
-            { word: "adhere", definition: "To stick firmly to something; to follow closely.", translation: ["прилипать", "придерживаться"], pronunciation: "adhere", sample: "The label did not adhere to the wet surface.", correctCount: 0, attempts: 0 },
-            { word: "severe", definition: "Very serious, harsh, or intense.", translation: ["серьёзный", "суровый"], pronunciation: "severe", sample: "The town suffered severe flooding after the storm.", correctCount: 0, attempts: 0 },
-            { word: "persevere", definition: "To continue trying despite difficulty.", translation: ["упорствовать", "не сдаваться"], pronunciation: "persevere", sample: "If you persevere, you will improve your skills.", correctCount: 0, attempts: 0 },
-            { word: "atmosphere", definition: "The layer of gases around a planet; the feeling of a place.", translation: ["атмосфера"], pronunciation: "atmosphere", sample: "The restaurant had a warm and friendly atmosphere.", correctCount: 0, attempts: 0 },
-            { word: "mere", definition: "Only this and nothing more.", translation: ["всего лишь", "простой"], pronunciation: "mere", sample: "It took a mere five minutes to finish.", correctCount: 0, attempts: 0 },
-            { word: "hemisphere", definition: "Half of the Earth or half of a sphere.", translation: ["полушарие"], pronunciation: "hemisphere", sample: "Australia is in the Southern Hemisphere.", correctCount: 0, attempts: 0 },
-            { word: "austere", definition: "Plain, simple, and without decoration; strict or serious.", translation: ["аскетичный", "суровый"], pronunciation: "austere", sample: "The room had an austere design with bare walls.", correctCount: 0, attempts: 0 }
+            { word: "attractive", definition: "Pleasing or interesting; good-looking.", translation: ["привлекательный"], pronunciation: "attractive", sample: "The shop has an attractive window display.", correctCount: 0, attempts: 0 },
+            { word: "creative", definition: "Good at making new ideas or things.", translation: ["творческий", "креативный"], pronunciation: "creative", sample: "She found a creative solution to the problem.", correctCount: 0, attempts: 0 },
+            { word: "addictive", definition: "So enjoyable or habit-forming that it is hard to stop.", translation: ["вызывающий зависимость", "затягивающий"], pronunciation: "addictive", sample: "That game is so addictive that I forget the time.", correctCount: 0, attempts: 0 },
+            { word: "assertive", definition: "Confident and direct without being rude.", translation: ["уверенный", "настойчивый"], pronunciation: "assertive", sample: "You need to be assertive in the meeting.", correctCount: 0, attempts: 0 },
+            { word: "abusive", definition: "Using cruel, violent, or insulting words or actions.", translation: ["оскорбительный", "жестокий"], pronunciation: "abusive", sample: "The coach was punished for his abusive language.", correctCount: 0, attempts: 0 },
+            { word: "co-operative", definition: "Willing to help and work well with others.", translation: ["готовый к сотрудничеству"], pronunciation: "cooperative", sample: "The class was calm and co-operative during the lesson.", correctCount: 0, attempts: 0 },
+            { word: "exhaustive", definition: "Including all details; complete and thorough.", translation: ["исчерпывающий"], pronunciation: "exhaustive", sample: "The report gives an exhaustive list of the changes.", correctCount: 0, attempts: 0 },
+            { word: "appreciative", definition: "Showing gratitude or understanding of value.", translation: ["благодарный", "ценящий"], pronunciation: "appreciative", sample: "The audience was appreciative after the performance.", correctCount: 0, attempts: 0 },
+            { word: "offensive", definition: "Rude or upsetting; causing offence.", translation: ["оскорбительный", "обидный"], pronunciation: "offensive", sample: "His joke was offensive to many people.", correctCount: 0, attempts: 0 },
+            { word: "expressive", definition: "Showing thoughts or feelings clearly.", translation: ["выразительный"], pronunciation: "expressive", sample: "Her eyes are very expressive.", correctCount: 0, attempts: 0 }
         ],
         week6: [
-            { word: "amateur", definition: "A person who does something for pleasure rather than as a job.", translation: ["любитель", "непрофессионал"], pronunciation: "amateur", sample: "Although he is an amateur photographer, his pictures are excellent.", correctCount: 0, attempts: 0 },
-            { word: "ancient", definition: "Very old; from a long time ago.", translation: ["древний", "старинный"], pronunciation: "ancient", sample: "They visited an ancient castle on the hill.", correctCount: 0, attempts: 0 },
-            { word: "bargain", definition: "Something bought for less than the usual price; to negotiate.", translation: ["выгодная покупка", "торговаться"], pronunciation: "bargain", sample: "This jacket was a real bargain in the sale.", correctCount: 0, attempts: 0 },
-            { word: "muscle", definition: "A body tissue that produces movement.", translation: ["мышца"], pronunciation: "muscle", sample: "Regular exercise helps build muscle.", correctCount: 0, attempts: 0 },
-            { word: "queue", definition: "A line of people or vehicles waiting for something.", translation: ["очередь"], pronunciation: "queue", sample: "We stood in a long queue for the tickets.", correctCount: 0, attempts: 0 },
-            { word: "recognise", definition: "To know someone or something because you have seen or heard it before.", translation: ["узнавать", "признавать"], pronunciation: "recognise", sample: "I did not recognise him at first.", correctCount: 0, attempts: 0 },
-            { word: "twelfth", definition: "Coming after the eleventh in order.", translation: ["двенадцатый"], pronunciation: "twelfth", sample: "Her birthday is on the twelfth of June.", correctCount: 0, attempts: 0 },
-            { word: "identity", definition: "Who a person is, or the facts about them.", translation: ["личность", "идентичность"], pronunciation: "identity", sample: "The police checked his identity before letting him enter.", correctCount: 0, attempts: 0 },
-            { word: "develop", definition: "To grow or cause something to grow or change.", translation: ["развивать", "развиваться"], pronunciation: "develop", sample: "Children develop quickly in their first years of life.", correctCount: 0, attempts: 0 },
-            { word: "harass", definition: "To annoy or upset someone repeatedly.", translation: ["донимать", "преследовать"], pronunciation: "harass", sample: "It is wrong to harass people online.", correctCount: 0, attempts: 0 }
+            { word: "musical", definition: "Related to music or good at music.", translation: ["музыкальный"], pronunciation: "musical", sample: "She comes from a very musical family.", correctCount: 0, attempts: 0 },
+            { word: "political", definition: "Connected with government, politics, or public affairs.", translation: ["политический"], pronunciation: "political", sample: "The newspaper also covers political events.", correctCount: 0, attempts: 0 },
+            { word: "accidental", definition: "Happening by chance and not planned.", translation: ["случайный", "непреднамеренный"], pronunciation: "accidental", sample: "The damage was accidental, not deliberate.", correctCount: 0, attempts: 0 },
+            { word: "mathematical", definition: "Related to mathematics.", translation: ["математический"], pronunciation: "mathematical", sample: "He has a strong mathematical mind.", correctCount: 0, attempts: 0 },
+            { word: "functional", definition: "Designed to be practical and useful.", translation: ["функциональный", "практичный"], pronunciation: "functional", sample: "The kitchen is small but very functional.", correctCount: 0, attempts: 0 },
+            { word: "tropical", definition: "Coming from or typical of hot regions near the equator.", translation: ["тропический"], pronunciation: "tropical", sample: "We saw tropical plants in the greenhouse.", correctCount: 0, attempts: 0 },
+            { word: "professional", definition: "Connected with skilled work, or done very well.", translation: ["профессиональный"], pronunciation: "professional", sample: "She gave a professional presentation.", correctCount: 0, attempts: 0 },
+            { word: "central", definition: "In the middle or most important part.", translation: ["центральный", "главный"], pronunciation: "central", sample: "The station is in a central part of the city.", correctCount: 0, attempts: 0 },
+            { word: "global", definition: "Relating to the whole world.", translation: ["глобальный", "мировой"], pronunciation: "global", sample: "Climate change is a global problem.", correctCount: 0, attempts: 0 },
+            { word: "industrial", definition: "Related to industry or factories.", translation: ["промышленный"], pronunciation: "industrial", sample: "The city grew into an industrial centre.", correctCount: 0, attempts: 0 }
         ]
     };
 
