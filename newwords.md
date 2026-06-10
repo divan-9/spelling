@@ -1,0 +1,133 @@
+
+
+Week 1
+- definite
+- desperate
+- literate
+- secretary
+- stationary
+- dictionary
+- Wednesday
+- familiar
+- original
+- animal
+
+
+Week 2
+- deflate
+- deform
+- decode
+- decompose
+- defuse
+- recycle
+- rebuild
+- rewrite
+- replace
+- revisit
+
+
+Week 3
+- overthrow
+- overturn
+- overslept
+- overcook
+- overreact
+- overestimate
+- overuse
+- overpaid
+- overlook
+- overbalance
+
+Week 4
+- boastful
+- faithful
+- doubtful
+- fearful
+- thankful
+- beautiful
+- pitiful
+- plentiful
+- fanciful
+- merciful
+
+Week 5
+- attractive
+- creative
+- addictive
+- assertive
+- abusive
+- co-operative
+- exhaustive
+- appreciative
+- offensive
+- expressive
+
+Week 6
+- musical
+- political
+- accidental
+- mathematical
+- functional
+- tropical
+- professional
+- central
+- global
+- industrial
+
+
+Week 7
+- anticipation
+- affordable
+- journalist
+- glow
+- cautious
+- flourish
+- receive
+- anchor
+- intrigue
+- upbringing
+- hover
+- vibration
+- panel
+- achieve
+- reindeer
+- passion
+- potential
+- plaque
+- horror
+- excited
+- unwilling
+- ready
+- confident
+- peer
+- extend
+- approach
+- reward
+- alteration
+- reluctant
+- celebration
+- journey
+- determined
+- fascinated
+- disappointed
+- residential
+- farming
+- underground
+- suggestion
+- inaudible
+- recklessly
+- politely
+- carelessly
+- globe
+- scene
+- compete
+- faint
+- surface
+- beckon
+- dedicated
+- extended
+- intently
+- afford
+- curiosity
+- beckoning
+
